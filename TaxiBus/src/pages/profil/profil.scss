@@ -1,4 +1,20 @@
 page-profil {
-    
+    img{
+        float: left;
+        width:50px;
+        vertical-align:middle;
     }
+
+    p{
+        
+        display:inline-block;
+        vertical-align:middle;
+    }
+    span{
+        display:block;
+        width:210px;
+      text-align:right;
+      background-color: red;
+    }
+ }
     
