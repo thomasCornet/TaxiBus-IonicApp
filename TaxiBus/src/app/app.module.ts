@@ -8,10 +8,14 @@ import { HomePage } from '../pages/home/home';
 import { HorairePage } from '../pages/horaire/horaire';
 import { PrixPage } from '../pages/prix/prix';
 import { ProfilPage } from '../pages/profil/profil';
+import {MapsPage} from '../pages/home/maps/maps';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
+
+import {GoogleMaps} from '@ionic-native/google-maps';
+import { Geolocation } from '@ionic-native/geolocation';
 @NgModule({
   declarations: [
     MyApp,
@@ -19,7 +23,8 @@ import { StatusBar } from '@ionic-native/status-bar';
     HorairePage,
     PrixPage,
     ProfilPage,
-    TabsPage
+    TabsPage,
+    MapsPage
   ],
   imports: [
     BrowserModule,
@@ -32,11 +37,14 @@ import { StatusBar } from '@ionic-native/status-bar';
     HorairePage,
     PrixPage,
     ProfilPage,
-    TabsPage
+    TabsPage,
+    MapsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    GoogleMaps,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
