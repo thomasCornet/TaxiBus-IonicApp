@@ -15,6 +15,7 @@ export class MapsPage {
   private trees: TreeMapping.Treemap[];
   public debut: string;
   public fin: string;
+  
   constructor(public navCtrl: NavController, private googleMaps: GoogleMaps, public platform: Platform  ,private geolocation: Geolocation) {
     
     this.trees=TreeMapping.TreeMappingList;

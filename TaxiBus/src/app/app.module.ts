@@ -16,6 +16,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import {GoogleMaps} from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
+
 @NgModule({
   declarations: [
     MyApp,
