@@ -6,17 +6,39 @@ page-home {
 
     #voiture{
         margin-top: 15%;
-        height: 180px;
+        margin-left:-8%;
+        height:auto;
+        max-width:116%;
     }
 
     #button{
         display: block;
         width: 210px;
         height: 50px;
-        margin-top: 20%;
+        margin-top: 15%;
         margin-left: auto;
         margin-right: auto
      }
+
+     p{
+        font-weight: bold;
+        margin-top: 10%;
+     }
+     
+     p img{
+        vertical-align:-70%;
+        margin-left: -10%;
+        width:15%;
+     }
+     #info{
+        
+        width:13%;
+        margin-left: -11%;
+        margin-top: 3%;
+        margin-right: 2%;
+     }
+
+     
     
   
 }
