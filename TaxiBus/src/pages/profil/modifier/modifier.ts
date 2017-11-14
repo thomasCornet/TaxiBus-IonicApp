@@ -1,7 +1,6 @@
 
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { ProfilPage } from '../profil';
 @Component({
     selector: 'page-modifier',
     templateUrl: 'modifier.html'
@@ -12,7 +11,7 @@ import { ProfilPage } from '../profil';
       
     }
     showValider(){
-      this.navCtrl.pop();
+      this.navCtrl.pop(); 
     }
     
   }
