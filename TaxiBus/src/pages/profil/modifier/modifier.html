@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar color="danger">
+    <ion-title>
+      Modifier
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Telephone</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Adresse</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Mot de passe actuel</ion-label>
+      <ion-input type="password"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Nouveau mot de passe</ion-label>
+      <ion-input type="password"></ion-input>
+    </ion-item>
+    <button ion-button color="danger" (tap)="showValider()" outline>Valider</button>
+  </ion-list>
+
+</ion-content>

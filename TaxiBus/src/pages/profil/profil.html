@@ -1,28 +1,74 @@
 <ion-header>
-        <ion-navbar color="danger">
-          <ion-title>
-            Profil
-          </ion-title>
-        </ion-navbar>
-      </ion-header>
-      
-      <ion-content padding>
-          <ion-card>
-              <ion-card-header style="font-weight: bold"color="primary">
-                Vos réservation
-              </ion-card-header>
-              
-              <ion-card-content>
-                  <p>
-                    <img id="ticket"src="../../assets/imgs/ticket.png">
-                       <span> Samedi 28 Janvier - 20 h
-                             <br/> 
-                             Valleyfield >> Montréal
-                      </span>
-                    </p>
-               
-              </ion-card-content>
+  <ion-navbar color="danger">
+    <ion-title>
+      Profil
+    </ion-title>
+  </ion-navbar>
+</ion-header>
 
-            </ion-card>
-      </ion-content>
-      
+<ion-content padding>
+  <div padding>
+    <ion-segment [(ngModel)]="pet">
+      <ion-segment-button value="Information" class="information">
+        Information
+      </ion-segment-button>
+      <ion-segment-button value="Reservation" class="reservation">
+        Reservation
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="pet">
+    <ion-item *ngSwitchCase="'Information'">
+      <div class="champ">
+        <h1 class="titre">Numero de carte :</h1>
+        <h2 class="valeur">45235194550</h2>
+      </div>
+      <div class="champ">
+        <h1 class="titre">Prenom :</h1>
+        <h2 class="valeur">Théo</h2>
+      </div>
+      <div class="champ">
+        <h1 class="titre">Nom :</h1>
+        <h2 class="valeur">Fombasso</h2>
+      </div>
+      <div class="champ">
+        <h1 class="titre">Email :</h1>
+        <h2 class="valeur">theo.fombasso@gmail.com</h2>
+      </div>
+      <div class="champ">
+        <h1 class="titre">Telephone :</h1>
+        <h2 class="valeur">06 66 76 28 42</h2>
+      </div>
+      <div class="champ">
+        <h1 class="titre">Adresse :</h1>
+        <h2 class="valeur">41 rue du pré Catelan</h2>
+      </div>
+      <div class="champ">
+        <h1 class="titre">Mot de passe :</h1>
+        <h2 class="valeur">°°°°°°°°°</h2>
+      </div>
+      <button ion-button color="danger" (tap)="showModifier()" outline>Modifier</button>
+    </ion-item>
+
+
+    <ion-list *ngSwitchCase="'Reservation'">
+      <ion-card>
+        <ion-card-header style="font-weight: bold"color="primary">
+          Samedi 28 Janvier - 20h10
+        </ion-card-header>
+        
+        <ion-card-content>
+            <p>
+              <img id="ticket"src="../../assets/imgs/ticket.png">
+                <span class="lieu">D : 404 - Hotel de Ville <br/> A : 202 - Rue Nicholson</span>
+              </p>
+         
+        </ion-card-content>
+
+      </ion-card>
+    </ion-list>
+
+
+  </div>
+</ion-content>

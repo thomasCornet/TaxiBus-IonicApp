@@ -9,6 +9,7 @@ import { HorairePage } from '../pages/horaire/horaire';
 import { PrixPage } from '../pages/prix/prix';
 import { ProfilPage } from '../pages/profil/profil';
 import {MapsPage} from '../pages/home/maps/maps';
+import {ModifierPage} from '../pages/profil/modifier/modifier';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -25,7 +26,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     PrixPage,
     ProfilPage,
     TabsPage,
-    MapsPage
+    MapsPage,
+    ModifierPage
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     PrixPage,
     ProfilPage,
     TabsPage,
-    MapsPage
+    MapsPage,
+    ModifierPage
   ],
   providers: [
     StatusBar,
