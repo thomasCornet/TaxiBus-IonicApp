@@ -7,6 +7,22 @@
   </ion-header>
   
   <ion-content>
-      <div id="map"> </div>
+
+      
+     
+      <div id="map">
+          <ion-searchbar  [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"></ion-searchbar>
+
+          <ion-list>
+
+            <button ion-item (tap)="choixItem(item)"  *ngFor="let item of items">
+              {{ item }}
+            </button>
+
+          </ion-list>
+      </div>
+
+      
+
   </ion-content>
   

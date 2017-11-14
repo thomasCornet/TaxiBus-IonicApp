@@ -11,31 +11,43 @@ import * as TreeMapping from '../../../models/tree.mapping';
 })
 
 export class MapsPage {
-  public map: GoogleMap;
+  private map: GoogleMap;
   private trees: TreeMapping.Treemap[];
-  public debut: string;
-  public fin: string;
-  
+  private lat: number;
+  private lng: number;
+  private lati:number;
+  //choix:string;
+  private nom: string = '';
+  private items: string[];
+
+
   constructor(public navCtrl: NavController, private googleMaps: GoogleMaps, public platform: Platform  ,private geolocation: Geolocation) {
     
     this.trees=TreeMapping.TreeMappingList;
+    
     console.log(this.trees);
-
     platform.ready().then(() =>{
-          this.loadMap();         
+          this.maPos();         
       });
+    this.items=new Array(this.trees.length);
+      
   }
 
 
-
-  loadMap() {
+  maPos(){
     this.geolocation.getCurrentPosition().then((pos) => {
+      this.loadMap(pos.coords.latitude,pos.coords.longitude);
+    }
+  )};
+
+  loadMap(lat:number,lng:number) {
+   
    
         let mapOptions: GoogleMapOptions = {
           camera: {
             target: {
-              lat:pos.coords.latitude,
-              lng: pos.coords.longitude
+              lat:lat,
+              lng:lng
             },
             zoom: 18,
             tilt: 30
@@ -59,15 +71,15 @@ export class MapsPage {
                 icon: 'blue',
                 animation: 'DROP',
                 position: {
-                  lat: pos.coords.latitude,
-                  lng: pos.coords.longitude
+                  lat:lat,
+                  lng: lng
                 }
               });
               
     
           });
       }
-    )};
+    
 
     private addMarkerOnMap(tree: TreeMapping.Treemap){
 
@@ -84,7 +96,28 @@ export class MapsPage {
       });
 
     }
+
+  
+    initialisationItems(){
+      for(var i=0;i<this.trees.length;++i){
+        this.items[i]=this.trees[i].name;
+      }
+    }
+    onInput(ev:any){
+      let val=ev.target.value;
+      this.initialisationItems();
+      
+    if(val && val.trim()!=''){
+       this.items=this.items.filter((item)=>{
+         return (item.toLowerCase().indexOf(val.toLowerCase())>-1);
+       })
+     }
+     
+     
+
+    }
     
-
-
+    choixItem(item: Object){
+      console.log(item);
+    }
 }
