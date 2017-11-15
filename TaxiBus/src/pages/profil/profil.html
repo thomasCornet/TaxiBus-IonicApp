@@ -7,42 +7,45 @@
 </ion-header>
 
 <ion-content padding>
+  
   <div padding>
-    <ion-segment [(ngModel)]="pet">
-      <ion-segment-button value="Information" class="information">
-        Information
+    <ion-segment [(ngModel)]="info">
+      <ion-segment-button value="information" class="information">
+        Informations
       </ion-segment-button>
-      <ion-segment-button value="Reservation" class="reservation">
-        Reservation
+      <ion-segment-button value="reservation" class="reservation">
+        Réservation
       </ion-segment-button>
     </ion-segment>
   </div>
 
-  <div [ngSwitch]="pet">
-    <ion-item *ngSwitchCase="'Information'">
+  <div [ngSwitch]="info">
+
+    <ion-item *ngSwitchCase="'information'" ngSelected="selected">
+     
       <div class="champ">
         <h1 class="titre">Numero de carte :</h1>
         <h2 class="valeur">45235194550</h2>
       </div>
       <div class="champ">
         <h1 class="titre">Prenom :</h1>
-        <h2 class="valeur">Théo</h2>
+        <h2 class="valeur">  {{user.results[1].name.first}}</h2>
       </div>
       <div class="champ">
         <h1 class="titre">Nom :</h1>
-        <h2 class="valeur">Fombasso</h2>
+        <h2 class="valeur"> {{user.results[1].name.last}}</h2>
       </div>
       <div class="champ">
         <h1 class="titre">Email :</h1>
-        <h2 class="valeur">theo.fombasso@gmail.com</h2>
+        <h2 class="valeur"> {{user.results[1].email}}</h2>
       </div>
       <div class="champ">
         <h1 class="titre">Telephone :</h1>
-        <h2 class="valeur">06 66 76 28 42</h2>
+        <h2 class="valeur"> {{user.results[1].cell}}</h2>
       </div>
       <div class="champ">
         <h1 class="titre">Adresse :</h1>
-        <h2 class="valeur">41 rue du pré Catelan</h2>
+        <h2 class="valeur">{{user.results[1].location.street}} {{user.results[1].location.city}}</h2>
       </div>
       <div class="champ">
         <h1 class="titre">Mot de passe :</h1>
@@ -52,7 +55,7 @@
     </ion-item>
 
 
-    <ion-list *ngSwitchCase="'Reservation'">
+    <ion-list *ngSwitchCase="'reservation'">
       <ion-card>
         <ion-card-header style="font-weight: bold"color="primary">
           Samedi 28 Janvier - 20h10
