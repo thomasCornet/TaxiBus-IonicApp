@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, Platform } from 'ionic-angular';
+import { NavController, Platform,Keyboard } from 'ionic-angular';
 
 import {GoogleMaps, GoogleMap, GoogleMapsEvent, GoogleMapOptions, CameraPosition, MarkerOptions, Marker } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -16,20 +16,27 @@ export class MapsPage {
   private lat: number;
   private lng: number;
   private lati:number;
-  //choix:string;
+  private choix:string;
   private nom: string = '';
   private items: string[];
+  private valeur:string='';
+ 
 
-
-  constructor(public navCtrl: NavController, private googleMaps: GoogleMaps, public platform: Platform  ,private geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, private googleMaps: GoogleMaps,public platform: Platform  ,public keyboard: Keyboard,private geolocation: Geolocation) {
+    
     
     this.trees=TreeMapping.TreeMappingList;
-    
     console.log(this.trees);
     platform.ready().then(() =>{
           this.maPos();         
       });
     this.items=new Array(this.trees.length);
+
+    if(this.valeur.trim()==''){
+      this.items=this.items.filter((item)=>{
+        return (item.toLowerCase().indexOf(this.valeur.toLowerCase())>0);
+      })
+    }
       
   }
 
@@ -42,16 +49,20 @@ export class MapsPage {
 
   loadMap(lat:number,lng:number) {
    
-   
+    console.log("les coord ok:"+lat+"lng"+lng);
+
         let mapOptions: GoogleMapOptions = {
+          
           camera: {
             target: {
+              
               lat:lat,
               lng:lng
             },
-            zoom: 18,
+            zoom: 19,
             tilt: 30
           }
+          
         };
         
         this.map = GoogleMaps.create('map', mapOptions);
@@ -60,9 +71,7 @@ export class MapsPage {
         this.map.one(GoogleMapsEvent.MAP_READY)
           .then(() => {
             console.log('Map is ready!');
-
             for(var tree of this.trees){
-
               this.addMarkerOnMap(tree);
             }
          
@@ -103,21 +112,60 @@ export class MapsPage {
         this.items[i]=this.trees[i].name;
       }
     }
-    onInput(ev:any){
+
+    rechercheInTree(ev:any){
       let val=ev.target.value;
       this.initialisationItems();
       
-    if(val && val.trim()!=''){
+      if(val && val.trim()!=''){
        this.items=this.items.filter((item)=>{
          return (item.toLowerCase().indexOf(val.toLowerCase())>-1);
        })
-     }
+
+      }
      
      
 
     }
     
-    choixItem(item: Object){
-      console.log(item);
+    choixVille(item: string){
+      this.choix=item;
+      this.keyboard.close();
+      if(this.choix && this.choix.trim()!=''){
+        this.items=this.items.filter((item)=>{
+          return (item.toLowerCase().indexOf(this.choix.toLowerCase())>0);
+        })
+      }
+
+      for(var i=0;i<this.trees.length;++i){
+        if(this.trees[i].name==this.choix){
+          this.zoom(this.trees[i].lat,this.trees[i].lng);
+          break;
+        }
+      }
+      
+     
     }
+
+    zoom(lat:number,lng:number){
+      console.log(lat,lng);
+      this.map.setCameraTarget({
+        lat: lat, 
+        lng:lng,
+        
+      });
+      this.map.setCameraZoom(19);
+     
+    }
+    
+
+
+
+    fermerClavier(){
+     this.keyboard.close();
+    }
+
 }
+  
+
+

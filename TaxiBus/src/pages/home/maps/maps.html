@@ -10,17 +10,21 @@
 
       
      
-      <div id="map">
-          <ion-searchbar  [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"></ion-searchbar>
-
-          <ion-list>
-
-            <button ion-item (tap)="choixItem(item)"  *ngFor="let item of items">
+      <div id="map" >
+          <ion-searchbar [(ngModel)]="choix"  [showCancelButton]="shouldShowCancel" (ionInput)="rechercheInTree($event)"></ion-searchbar>
+          
+          
+        
+          <ion-list >
+            <button ion-item (tap)="choixVille(item)"  *ngFor="let item of items">
               {{ item }}
             </button>
-
+            
           </ion-list>
-      </div>
+         
+        </div> 
+        
+     
 
       
 
