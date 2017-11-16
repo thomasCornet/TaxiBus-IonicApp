@@ -19,7 +19,7 @@ page-profil {
         color:grey;
         margin-left: 10px;
     }
-    .button-outline-ios-danger {
+    .button {
         display:block;
         color:#063f8e;
         border-color:#063f8e;
@@ -28,7 +28,7 @@ page-profil {
         margin-right: auto;
         width: 200px; 
     }
-    .button-outline-ios-danger.activated {
+    .button.activated {
         background-color:#063f8e;
     }
     img{
