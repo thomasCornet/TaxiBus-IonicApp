@@ -55,6 +55,112 @@ export const TreeMappingList=[
         'numero':'410',
         lat:45.253429,
         lng:-74.132092
+    },
+    {
+        'name':'Cité des Arts',
+        'numero':'412',
+        lat:45.252396,
+        lng:-74.131262
+    },
+    {
+        'name':'St-Jean-Baptiste / Nicholson',
+        'numero':'424',
+        lat:45.253660,
+        lng:-74.130391
+    },
+    {
+        'name':'75 St-Jean-Baptiste (Pavillon E)',
+        'numero':'434',
+        lat:45.254237,
+        lng:-74.128901
+    },
+    {
+        'name':'St-Jean-Baptiste / Académie',
+        'numero':'432',
+        lat:45.254877,
+        lng:-74.127434
+    },
+    {
+        'name':'Du centenaire / Hébert',
+        'numero':'428',
+        lat:45.256790,
+        lng:-74.128154
+    },
+    {
+        'name':'277 rue Salaberry',
+        'numero':'406',
+        lat:45.250981,
+        lng:-74.132854
+    },
+    {
+        'name':'Hôpital',
+        'numero':'414',
+        lat:45.250324,
+        lng:-74.130493
+    },
+    {
+        'name':'Avenue du Parc / Nicholson',
+        'numero':'426',
+        lat:45.251132,
+        lng:-74.128273
+    },
+    {
+        'name':'École Edgart Hébert',
+        'numero':'416',
+        lat:45.249909,
+        lng:-74.129088
+    },
+    {
+        'name':'Jacques-Cartier / Clermont',
+        'numero':'436',
+        lat:45.250876,
+        lng:-74.126384
+    },
+    {
+        'name':'Jacques-Cartier / Clermont',
+        'numero':'438',
+        lat:45.250974,
+        lng:-74.126266
+    },
+    {
+        'name':'50 rue Webb',
+        'numero':'440',
+        lat:45.250876,
+        lng:-74.123498
+    },
+    {
+        'name':'250 rue St-Thomas',
+        'numero':'415',
+        lat:45.247817,
+        lng:-74.127543
+    },
+    
+    {
+        'name':'265 chemin Larocque',
+        'numero':'417',
+        lat:45.247298,
+        lng:-74.130474
+    },
+    {
+        'name':'280 rue St-Thomas',
+        'numero':'418',
+        lat:45.246721,
+        lng:-74.126599
+    },
+    {
+        'name':'270 rue Taillefer',
+        'numero':'419',
+        lat:45.246276,
+        lng:-74.127318
+    },
+    {
+        'name':'Jacques-Cartier /  Taillefer',
+        'numero':'444',
+        lat:45.247386,
+        lng:-74.123423
     }
+
+
+
 
 ]
