@@ -24,19 +24,24 @@ page-login {
     }
     
     .sup{
-        //display:block;
-         margin-left: 30%;
-        
+        display:block;
+        text-align:center;
+        margin-top: 3%;
     }
-    .sup2{
-         top: 155%;
-         margin-left: 42%;
-        
+    div{
+        display:block;
+        margin-left: auto;
+        margin-right:auto;
+
     }
 
     ion-item-divider{
-        margin-left:23%;
+        display:block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 3%;
         min-height: 1px!important;
+        height: 1px;
         width: 200px;
       }
    
