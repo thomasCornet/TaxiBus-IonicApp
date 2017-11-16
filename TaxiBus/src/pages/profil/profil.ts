@@ -22,7 +22,7 @@ export class ProfilPage {
         console.log(this.user);
 
         // affiche direct Information
-        this.info="information";
+        this.info="reservation";
      });
 
    

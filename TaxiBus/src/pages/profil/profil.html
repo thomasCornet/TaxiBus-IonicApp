@@ -10,52 +10,18 @@
   
   <div padding>
     <ion-segment [(ngModel)]="info">
-      <ion-segment-button value="information" class="information">
-        Informations
-      </ion-segment-button>
       <ion-segment-button value="reservation" class="reservation">
         Réservation
+      </ion-segment-button>
+      <ion-segment-button value="information" class="information">
+        Informations
       </ion-segment-button>
     </ion-segment>
   </div>
 
   <div [ngSwitch]="info">
 
-    <ion-item *ngSwitchCase="'information'" ngSelected="selected">
-     
-      <div class="champ">
-        <h1 class="titre">Numero de carte :</h1>
-        <h2 class="valeur">45235194550</h2>
-      </div>
-      <div class="champ">
-        <h1 class="titre">Prenom :</h1>
-        <h2 class="valeur">  {{user.results[0].name.first}}</h2>
-      </div>
-      <div class="champ">
-        <h1 class="titre">Nom :</h1>
-        <h2 class="valeur"> {{user.results[0].name.last}}</h2>
-      </div>
-      <div class="champ">
-        <h1 class="titre">Email :</h1>
-        <h2 class="valeur"> {{user.results[0].email}}</h2>
-      </div>
-      <div class="champ">
-        <h1 class="titre">Telephone :</h1>
-        <h2 class="valeur"> {{user.results[0].cell}}</h2>
-      </div>
-      <div class="champ">
-        <h1 class="titre">Adresse :</h1>
-        <h2 class="valeur">{{user.results[0].location.street}} {{user.results[0].location.city}}</h2>
-      </div>
-      <div class="champ">
-        <h1 class="titre">Mot de passe :</h1>
-        <h2 class="valeur">°°°°°°°°°</h2>
-      </div>
-      <button ion-button color="danger" (tap)="showModifier()" outline>Modifier</button>
-    </ion-item>
-
-
-    <ion-list *ngSwitchCase="'reservation'">
+     <ion-list *ngSwitchCase="'reservation'" ngSelected="selected">
       <ion-card>
         <ion-card-header style="font-weight: bold"color="primary">
           Samedi 28 Janvier - 20h10
@@ -65,12 +31,43 @@
             <p>
               <img id="ticket"src="assets/imgs/ticket.png">
                 <span class="lieu">D : 404 - Hotel de Ville <br/> A : 202 - Rue Nicholson</span>
-            </p>
-         
+            </p>        
         </ion-card-content>
-
       </ion-card>
     </ion-list>
+
+    <ion-item *ngSwitchCase="'information'">
+      
+       <div class="champ">
+         <h1 class="titre">Numero de carte :</h1>
+         <h2 class="valeur">45235194550</h2>
+       </div>
+       <div class="champ">
+         <h1 class="titre">Prenom :</h1>
+         <h2 class="valeur">  {{user.results[0].name.first}}</h2>
+       </div>
+       <div class="champ">
+         <h1 class="titre">Nom :</h1>
+         <h2 class="valeur"> {{user.results[0].name.last}}</h2>
+       </div>
+       <div class="champ">
+         <h1 class="titre">Email :</h1>
+         <h2 class="valeur"> {{user.results[0].email}}</h2>
+       </div>
+       <div class="champ">
+         <h1 class="titre">Telephone :</h1>
+         <h2 class="valeur"> {{user.results[0].cell}}</h2>
+       </div>
+       <div class="champ">
+         <h1 class="titre">Adresse :</h1>
+         <h2 class="valeur">{{user.results[0].location.street}} {{user.results[0].location.city}}</h2>
+       </div>
+       <div class="champ">
+         <h1 class="titre">Mot de passe :</h1>
+         <h2 class="valeur">°°°°°°°°°</h2>
+       </div>
+       <button ion-button color="danger" (tap)="showModifier()" outline>Modifier</button>
+     </ion-item>
 
 
   </div>
