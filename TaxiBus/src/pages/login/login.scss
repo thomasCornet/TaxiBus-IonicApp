@@ -1,0 +1,45 @@
+page-login {
+    .fond{
+        background-image:url(../assets/imgs/fond.png);
+        
+        }
+
+    .login{
+        margin-top:20%;
+       
+    }
+    
+    img{
+        display:block;
+        margin-top:20%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .button{
+        display:block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top:10%;
+        width: 70%;
+    }
+    
+    .sup{
+        //display:block;
+         margin-left: 30%;
+        
+    }
+    .sup2{
+         top: 155%;
+         margin-left: 42%;
+        
+    }
+
+    ion-item-divider{
+        margin-left:23%;
+        min-height: 1px!important;
+        width: 200px;
+      }
+   
+}
+ 
+    

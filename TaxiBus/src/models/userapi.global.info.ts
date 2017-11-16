@@ -2,7 +2,7 @@
 
 
 export class UserApiGlobalInfo{
-    gender: String;
+    gender: string;
 
     
 }

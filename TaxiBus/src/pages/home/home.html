@@ -1,3 +1,5 @@
+
+
 <ion-header>
   <ion-navbar color="danger">
     <ion-title>
@@ -6,15 +8,15 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content  class="test">
+<ion-content  class="fond">
 
     <img id="voiture"src="assets/imgs/voiture.png">
 
     <button id="button" ion-button color="primary">Réserver</button>
 
-    <p (tap)="showMaps()">
-       <img id="carte" src="assets/imgs/carte.png" />
-       Carte des arrêts
+    <p >
+       <img  (tap)="showMaps()" id="carte" src="assets/imgs/carte.png" />
+       <span  (tap)="showMaps()" >Carte des arrêts</span>
     
     <br/>
     

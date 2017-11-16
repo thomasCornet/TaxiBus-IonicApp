@@ -13,6 +13,7 @@ import { PrixPage } from '../pages/prix/prix';
 import { ProfilPage } from '../pages/profil/profil';
 import {MapsPage} from '../pages/home/maps/maps';
 import {ModifierPage} from '../pages/profil/modifier/modifier';
+import {LoginPage} from '../pages/login/login'
 
 //googleMap
 import {GoogleMaps} from '@ionic-native/google-maps';
@@ -32,7 +33,8 @@ import {HttpModule} from '@angular/http';
     ProfilPage,
     TabsPage,
     MapsPage,
-    ModifierPage
+    ModifierPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -48,7 +50,8 @@ import {HttpModule} from '@angular/http';
     ProfilPage,
     TabsPage,
     MapsPage,
-    ModifierPage
+    ModifierPage,
+    LoginPage
   ],
   providers: [
     StatusBar,

@@ -20,6 +20,8 @@ export class ProfilPage {
      .then(userFetched => {
        this.user=userFetched 
         console.log(this.user);
+
+        // affiche direct Information
         this.info="information";
      });
 

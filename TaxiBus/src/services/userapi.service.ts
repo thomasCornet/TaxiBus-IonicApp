@@ -11,18 +11,19 @@ export class UserApiService{
 
     private baseUrl: string = "https://randomuser.me/api/";
     private nombre: string = "10";
-    s
+    
     constructor(private http: Http){
 
     }
 
     public getUser(): Promise<UserApiGlobal>{
 
-        const url=`${this.baseUrl}?results=${this.nombre}`;
+        const url=`${this.baseUrl}`;
 
         return this.http.get(url)
         .toPromise()
         .then(response => response.json() as UserApiGlobal)
+        
         
     }
 
