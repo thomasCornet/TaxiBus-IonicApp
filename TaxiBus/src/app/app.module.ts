@@ -15,7 +15,7 @@ import {MapsPage} from '../pages/home/maps/maps';
 import {ModifierPage} from '../pages/profil/modifier/modifier';
 import {LoginPage} from '../pages/login/login';
 import {ReserverPage} from '../pages/home/reserver/reserver';
-import { SuperTabsModule } from 'ionic2-super-tabs';
+
 //googleMap
 import {GoogleMaps} from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -42,7 +42,6 @@ import {HttpModule} from '@angular/http';
   imports: [
     BrowserModule,
     HttpModule,
-    SuperTabsModule.forRoot(),
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
