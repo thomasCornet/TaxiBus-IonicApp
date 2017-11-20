@@ -22,24 +22,26 @@ export class MapsPage {
   private valeur:string='';
  
 
-  constructor(public navCtrl: NavController, private googleMaps: GoogleMaps,public platform: Platform  ,public keyboard: Keyboard,private geolocation: Geolocation) {
-    //demande d'activation localisation
-    /*this.locationAccuracy.canRequest().then((canRequest: boolean) => {
-      
-        if(canRequest) {
-          // the accuracy option will be ignored by iOS
-          this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
-            () => console.log('Request successful'),
-            error => console.log('Error requesting location permissions', error)
-          );
-        }
-    });*/
+  constructor(public navCtrl: NavController,private locationAccuracy: LocationAccuracy, private googleMaps: GoogleMaps,public platform: Platform  ,public keyboard: Keyboard,private geolocation: Geolocation) {
+   
     
     this.trees=TreeMapping.TreeMappingList;
     console.log(this.trees);
     platform.ready().then(() =>{
-          this.maPos();         
-      });
+      
+      //demande d'activation localisation
+      this.locationAccuracy.canRequest().then((canRequest: boolean) => {
+        
+          if(canRequest) {
+            // the accuracy option will be ignored by iOS
+            this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
+              () => this.maPos(),
+              error => console.log('Error requesting location permissions', error)
+            );
+          }
+      });        
+    });
+
     this.items=new Array(this.trees.length);
 
     if(this.valeur.trim()==''){
