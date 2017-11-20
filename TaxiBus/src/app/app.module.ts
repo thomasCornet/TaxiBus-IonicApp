@@ -19,7 +19,7 @@ import {ReserverPage} from '../pages/home/reserver/reserver';
 //googleMap
 import {GoogleMaps} from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
-
+import { LocationAccuracy } from '@ionic-native/location-accuracy';
 //api
 import {UserApiService} from '../services/userapi.service';
 import {HttpModule} from '@angular/http';
@@ -61,6 +61,7 @@ import {HttpModule} from '@angular/http';
     SplashScreen,
     GoogleMaps,
     Geolocation,
+    LocationAccuracy,
     UserApiService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

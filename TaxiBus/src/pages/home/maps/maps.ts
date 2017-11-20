@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, Platform,Keyboard } from 'ionic-angular';
-
+import { LocationAccuracy } from '@ionic-native/location-accuracy';
 import {GoogleMaps, GoogleMap, GoogleMapsEvent, GoogleMapOptions, CameraPosition, MarkerOptions, Marker } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 import * as TreeMapping from '../../../models/tree.mapping';
@@ -23,7 +23,17 @@ export class MapsPage {
  
 
   constructor(public navCtrl: NavController, private googleMaps: GoogleMaps,public platform: Platform  ,public keyboard: Keyboard,private geolocation: Geolocation) {
-    
+    //demande d'activation localisation
+    /*this.locationAccuracy.canRequest().then((canRequest: boolean) => {
+      
+        if(canRequest) {
+          // the accuracy option will be ignored by iOS
+          this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
+            () => console.log('Request successful'),
+            error => console.log('Error requesting location permissions', error)
+          );
+        }
+    });*/
     
     this.trees=TreeMapping.TreeMappingList;
     console.log(this.trees);
