@@ -7,24 +7,27 @@
   </ion-header>
   
   <ion-content padding>
-    <ion-list>
       <ion-item>
         <ion-label floating>Lieu de depart</ion-label>
         <ion-input type="text"></ion-input>
       </ion-item>
+        <ion-item>
+          <ion-label floating>Lieu d'arrivé</ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+    <div class="champ">
       <ion-item>
         <ion-label>Date de depart</ion-label>
         <ion-datetime displayFormat="MMM/DD/YYYY" [(ngModel)]="myDate"></ion-datetime>
       </ion-item>
+    </div>
+      <div class="champ">
       <ion-item>
         <ion-label>Heure de depart</ion-label>
         <ion-datetime displayFormat="H:mm" [(ngModel)]="myDate"></ion-datetime>
       </ion-item>
-      <ion-item>
-        <ion-label floating>Lieu d'arrivé</ion-label>
-        <ion-input type="text"></ion-input>
-      </ion-item>
-      <button ion-button color="primary" (tap)="showHome()" outline>Valider</button>
-    </ion-list>
+    </div>
+
+      <button ion-button color="primary" class="button" (tap)="showHome()" outline>Valider</button>
   
   </ion-content>

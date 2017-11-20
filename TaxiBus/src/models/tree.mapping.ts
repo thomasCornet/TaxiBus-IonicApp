@@ -158,7 +158,48 @@ export const TreeMappingList=[
         'numero':'444',
         lat:45.247386,
         lng:-74.123423
-    }
+    },
+    // 300
+    {
+        'name':'St-Jean-Baptiste / Cheff',
+        'numero':'305',
+        lat:45.236979, 
+        lng:-74.161296
+    },
+    {
+        'name':'Des Grands-Mâts	/ Du Mistral',
+        'numero':'307',
+        lat:45.236598, 
+        lng:-74.157579
+    },
+    {
+        'name':'De La Brise	/ Du Bocage',
+        'numero':'301',
+        lat:45.238402,  
+        lng:-74.158933
+    },
+    {
+        'name':'St-Jean-Baptiste / Cheff',
+        'numero':'300',
+        lat:45.240054, 
+        lng:-74.160214
+    },
+    {
+        'name':'St-Jean-Baptiste / Du Hauban',
+        'numero':'303',
+        lat:45.241680, 
+        lng:-74.157688
+    },
+    {
+        'name':'Beaudet	St-Jean-Baptiste',
+        'numero':'306',
+        lat:45.243319, 
+        lng:-74.154909
+    },
+
+
+
+
 
 
 
