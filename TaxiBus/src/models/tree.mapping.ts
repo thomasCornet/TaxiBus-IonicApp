@@ -6,7 +6,7 @@ export interface Treemap{
 }
 
 export const TreeMappingList=[
-
+    //400
     {
         'name':'Hotel de Ville',
         'numero':'422',
@@ -196,6 +196,176 @@ export const TreeMappingList=[
         lat:45.243319, 
         lng:-74.154909
     },
+    {
+        'name':'Victoria / Alfred',
+        'numero':'370',
+        lat:45.256167, 
+        lng:-74.139251
+    },
+    {
+        'name':'St-Louis / Lasnier',
+        'numero':'372',
+        lat:45.253442, 
+        lng:-74.137939
+    },
+    {
+        'name':'Club Nautique',
+        'numero':'368',
+        lat:45.255766, 
+        lng:-74.141437
+    },
+    {
+        'name':'Victoria / St-Théodore',
+        'numero':'350',
+        lat:45.254243, 
+        lng:-74.143695
+    },
+    {
+        'name':'20 rue St-Pierre',
+        'numero':'353',
+        lat:45.253896, 
+        lng:-74.140520
+    },
+    {
+        'name':'Bissonnette / St-Joseph',
+        'numero':'352',
+        lat:45.252804, 
+        lng:-74.141197
+    },
+    {
+        'name':'Boul. Quevillon / Champlain',
+        'numero':'336',
+        lat:45.249210, 
+        lng:-74.142657
+    },
+    {
+        'name':'École Langlois',
+        'numero':'338',
+        lat:45.249237, 
+        lng:-74.140871
+    },
+    {
+        'name':'Bissonnette / Champlain',
+        'numero':'354',
+        lat:45.250610, 
+        lng:-74.139348
+    },
+    {
+        'name':'Champlain / St-Francois',
+        'numero':'374',
+        lat:45.252136, 
+        lng:-74.135565
+    },
+    {
+        'name':'St-Jean-Baptiste / Ch.Larocque',
+        'numero':'376',
+        lat:45.251858, 
+        lng:-74.134508
+    },
+    {
+        'name':'226 rue Montcalm',
+        'numero':'355',
+        lat:45.250439, 
+        lng:-74.136156
+    },
+    {
+        'name':'Bissonnette / Salaberry',
+        'numero':'356',
+        lat:45.248868, 
+        lng:-74.137916
+    },
+    {
+        'name':'Salaberry / St-Francois',
+        'numero':'378',
+        lat:45.250517, 
+        lng:-74.133963
+    },
+    {
+        'name':'École Frédéric-Girard',    
+        'numero':'342',
+        lat:45.246312, 
+        lng:-74.140254
+    },
+    {
+        'name':'Bissonnette	 / Édouard ',     
+        'numero':'358',
+        lat:45.247774, 
+        lng:-74.136942
+    },
+    {
+        'name':'St-Francois / Édouard ',    
+        'numero':'380',
+        lat:45.249323, 
+        lng:-74.133282
+    },
+    {
+        'name':'Bissonnette / Vallée ',    
+        'numero':'360',
+        lat:45.246615, 
+        lng:-74.136011
+    },
+    {
+        'name':'Bissonnette / Du Zouave ',    
+        'numero':'362',
+        lat:45.245496, 
+        lng:-74.134980
+    },
+    {
+        'name':'Boul. Quevillon / Du Zouave',    
+        'numero':'344',
+        lat:45.244034, 
+        lng:-74.138386
+    },
+    {
+        'name':'37 Des Dominicaines',    
+        'numero':'382',
+        lat:45.247733, 
+        lng:-74.131362
+    },
+    {
+        'name':'St-Francois / Lanctôt',    
+        'numero':'384',
+        lat:45.245873, 
+        lng:-74.130261
+    },
+    {
+        'name':'Taillefer / Mathias',        
+        'numero':'346',
+        lat:45.242644, 
+        lng:-74.134996
+    },
+    {
+        'name':'Taillefer / Bissonnette',        
+        'numero':'364',
+        lat:45.243414, 
+        lng:-74.133282
+    },
+    {
+        'name':'École Dominique Savio',        
+        'numero':'386',
+        lat:45.244898, 
+        lng:-74.128531
+    },
+    {
+        'name':'Cosette /St-Raphaël',        
+        'numero':'366',
+        lat:45.243060, 
+        lng:-74.1305278
+    },
+    {
+        'name':'Maisonneuve	Ste-Marie',        
+        'numero':'348',
+        lat:45.240821, 
+        lng:-74.131451
+    },
+    {
+        'name':'Métro Plus',        
+        'numero':'379',
+        lat:45.241563, 
+        lng:-74.129273
+    }
+    
+    
 
 
 
