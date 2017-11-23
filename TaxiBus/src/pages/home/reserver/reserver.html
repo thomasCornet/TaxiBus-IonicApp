@@ -7,14 +7,18 @@
   </ion-header>
   
   <ion-content padding>
-      <ion-item>
-        <ion-label floating>Lieu de depart</ion-label>
-        <ion-input type="text"></ion-input>
-      </ion-item>
-        <ion-item>
-          <ion-label floating>Lieu d'arrivé</ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
+      <ion-searchbar placeholder="Lieu de départ"[(ngModel)]="choixA"  [showCancelButton]="shouldShowCancel" (ionInput)="rechercheInTree($event)"></ion-searchbar>
+      <ion-list >
+        <button ion-item (tap)="choixVille(item)"  *ngFor="let item of items">
+          {{ item }}
+        </button>   
+      </ion-list>
+      <ion-searchbar placeholder="Lieu de d'arrivé"[(ngModel)]="choixB"  [showCancelButton]="shouldShowCancel" (ionInput)="rechercheInTree($event)"></ion-searchbar>
+      <ion-list >
+        <button ion-item (tap)="choixVille2(itemB)"  *ngFor="let itemB of itemsB">
+          {{ itemB }}
+        </button>   
+      </ion-list>
     <div class="champ">
       <ion-item>
         <ion-label>Date de depart</ion-label>
