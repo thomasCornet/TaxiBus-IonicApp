@@ -11,7 +11,8 @@ export class UserApiService{
 
     private baseUrl: string = "https://randomuser.me/api/";
     private nombre: string = "10";
-    
+   
+
     constructor(private http: Http){
 
     }
@@ -22,7 +23,7 @@ export class UserApiService{
 
         return this.http.get(url)
         .toPromise()
-        .then(response => response.json() as UserApiGlobal)
+        .then(response => response.json() as UserApiGlobal);
         
         
     }

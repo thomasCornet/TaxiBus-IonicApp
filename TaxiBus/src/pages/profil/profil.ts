@@ -21,7 +21,7 @@ export class ProfilPage {
        this.user=userFetched 
         console.log(this.user);
 
-        // affiche direct Information
+        // affiche direct la secion Information
         this.info="reservation";
      });
 
