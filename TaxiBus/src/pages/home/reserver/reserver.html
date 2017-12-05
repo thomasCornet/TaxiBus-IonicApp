@@ -6,36 +6,44 @@
     </ion-navbar>
   </ion-header>
   
-  <ion-content padding>
-      <ion-searchbar placeholder="Lieu de départ" [(ngModel)]="choixA"  [showCancelButton]="shouldShowCancel" (ionInput)="rechercheInTree($event)"></ion-searchbar>
-      <ion-list>
-
-        <button ion-item (tap)="choixVille(item)"  *ngFor="let item of items">
+  <ion-content padding style="margin-top: 5%">
+    <div class="searchOne">
+      <ion-searchbar placeholder="Lieu de départ" [(ngModel)]="choixA" (ionInput)="rechercheInTree($event)"></ion-searchbar>
+    </div>
+      <ion-list *ngIf="!cacher">
+          
+        <button ion-item (click)="choixVille(item)"  *ngFor="let item of items">
           {{ item }}
         </button>   
     
       </ion-list>
-
-      <ion-searchbar placeholder="Lieu de d'arrivé"[(ngModel)]="choixB"  [showCancelButton]="shouldShowCancel" (ionInput)="rechercheInTreeB($event)"></ion-searchbar>
-      <ion-list >
-        <button ion-item (tap)="choixVilleB(itemB)"  *ngFor="let itemB of itemsB">
+      <div class="searchTwo">
+      <ion-searchbar placeholder="Lieu d'arrivée"[(ngModel)]="choixB"   (ionInput)="rechercheInTreeB($event)"></ion-searchbar>
+    </div>
+      <ion-list *ngIf="!cacherB">
+        <button ion-item (click)="choixVilleB(itemB)"  *ngFor="let itemB of itemsB">
           {{ itemB }}
         </button>   
       </ion-list>
+      <p (tap)="showArrets()" class="text">Visualiser la carte des arrêts</p>
 
-    <div class="champ">
+    <div class="champ" style="margin-top: 10%">
       <ion-item>
-        <ion-label>Date de depart</ion-label>
-        <ion-datetime displayFormat="MMM/DD/YYYY" [(ngModel)]="myDate"></ion-datetime>
+          <ion-icon name="calendar" item-start></ion-icon>
+        <ion-label>Date de départ</ion-label>
+        <ion-datetime displayFormat="MMM/DD/YYYY"  min={{dateAnnee}} max={{dateAnnee+30}} [(ngModel)]="myDate"></ion-datetime>
       </ion-item>
     </div>
       <div class="champ">
       <ion-item>
-        <ion-label>Heure de depart</ion-label>
-        <ion-datetime displayFormat="H:mm" [(ngModel)]="myDate"></ion-datetime>
+          <ion-icon name="time" item-start></ion-icon>
+        <ion-label>Heure de départ</ion-label>
+        <ion-datetime displayFormat="H:mm" hourValues={{heures}}  [(ngModel)]="myHour"></ion-datetime>
       </ion-item>
     </div>
 
-      <button ion-button color="primary" class="button" (tap)="showHome()" outline>Valider</button>
-  
+      <button ion-button color="primary" class="validation" style="display:block; margin-top:13%; margin-left:auto; margin-right:auto" (tap)="verification()" >Réserver</button>
+      
+      <div   style="display:block; margin-top:5%;color:red;" [innerHTML]="erreurs" class="errorContainer"></div>
+
   </ion-content>

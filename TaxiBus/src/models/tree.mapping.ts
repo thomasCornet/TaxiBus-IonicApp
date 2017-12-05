@@ -21,7 +21,7 @@ export const TreeMappingList=[
         lng:-74.133154
     },
     {
-        'name':'80 rue rue Marché',
+        'name':'80 rue du Marché',
         'numero':'402',
         lat:45.253738,
         lng:-74.135487

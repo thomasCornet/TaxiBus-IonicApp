@@ -20,7 +20,6 @@ export class ProfilPage {
      .then(userFetched => {
        this.user=userFetched 
         console.log(this.user);
-
         // affiche direct la secion Information
         this.info="reservation";
      });

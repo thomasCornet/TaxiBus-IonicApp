@@ -20,10 +20,10 @@ export class UserApiService{
     public getUser(): Promise<UserApiGlobal>{
 
         const url=`${this.baseUrl}`;
-
+ 
         return this.http.get(url)
         .toPromise()
-        .then(response => response.json() as UserApiGlobal);
+        .then(response => response.json() as UserApiGlobal );
         
         
     }

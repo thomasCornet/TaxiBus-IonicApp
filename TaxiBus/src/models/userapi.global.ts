@@ -1,8 +1,12 @@
 import { UserApiGlobalInfo } from './userapi.global.info';
 
 export class UserApiGlobal{
-    info: string;
-    results : UserApiGlobalInfo[];
-
+    cell: String;
+    dob: String;
+    email:String;
+    gender: String;
+   
+    
+       
 
 }

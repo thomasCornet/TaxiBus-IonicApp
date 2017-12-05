@@ -2,7 +2,9 @@
 
 
 export class UserApiGlobalInfo{
-    gender: string;
-
+    city: String;
+    postcode : number;
+    state: String;
+    street:String;
     
 }

@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, Platform,Keyboard } from 'ionic-angular';
+import { NavController, Platform, Keyboard,LoadingController } from 'ionic-angular';
 import * as TreeMapping from '../../../models/tree.mapping';
+import {MapsPage} from "../maps/maps";
+import { HomePage } from '../home';
+import { ToastController } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 
 @Component({
     selector: 'page-reserver',
@@ -15,33 +19,30 @@ import * as TreeMapping from '../../../models/tree.mapping';
     private valeur:string='';
     private choixA: string;
     private choixB: string;
-    
-    constructor(public navCtrl: NavController, public platform: Platform  ,public keyboard: Keyboard) {
+    private myDate: string;
+    private myHour: string;
+    private erreurs;
+    private cacher: boolean= false;
+    private cacherB: boolean= false;
+    private heures:String[]=["5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22"];
+    private minutes:String[]=["00,10,20,30,40"];
+    private date=new Date();
+    private dateAnnee= this.date.getFullYear();
+    private dateJour=this.date.getDate();
+    private Jour=this.date.getDay();
+
+    constructor(public navCtrl: NavController, public platform: Platform  , private alertCtrl: AlertController, private toastCtrl: ToastController,public keyboard: Keyboard,public loadingCtrl: LoadingController) {
 
       this.trees=TreeMapping.TreeMappingList;
-
+      
       //Départ
       this.items=new Array(this.trees.length);
-    
-      if(this.valeur.trim()==''){
-        this.items=this.items.filter((item)=>{
-          return (item.toLowerCase().indexOf(this.valeur.toLowerCase())>0);
-        })
-      }
+      this.cacher=true;
 
       //Arrivée
       this.itemsB=new Array(this.trees.length);
+      this.cacherB=true;
 
-      if(this.valeur.trim()==''){
-        this.itemsB=this.itemsB.filter((item)=>{
-          return (item.toLowerCase().indexOf(this.valeur.toLowerCase())>0);
-        })
-      }
-
-    }
-
-    showHome(){
-      this.navCtrl.pop(); 
     }
 
     initialisationItems(){
@@ -53,56 +54,142 @@ import * as TreeMapping from '../../../models/tree.mapping';
     //Lieu de départ
 
     rechercheInTree(ev:any){
+      
       let val=ev.target.value;
       this.initialisationItems();
       
       if(val && val.trim()!=''){
+        this.cacher=false;
         this.items=this.items.filter((item)=>{
-        return (item.toLowerCase().indexOf(val.toLowerCase())>-1);
+            return (item.toLowerCase().indexOf(val.toLowerCase())>-1);          
        })
 
       }
+      else{
+        this.cacher=true;
+      }
+
 
     }
+    
     choixVille(item: string){
       this.choixA=item;
       this.keyboard.close();
-      if(this.choixA && this.choixA.trim()!=''){
-        this.items=this.items.filter((item)=>{
-          return (item.toLowerCase().indexOf(this.choixA.toLowerCase())>0);
-        })
-      }
+      this.cacher=true;
     }
 
     //Lieu d'arrivée
 
     initialisationItemsB(){
+      
       for(var i=0;i<this.trees.length;++i){
         this.itemsB[i]=this.trees[i].name;
       }
     }
 
    rechercheInTreeB(ev:any){
+     
       let val=ev.target.value;
       this.initialisationItemsB();
       
       if(val && val.trim()!=''){
-        this.itemsB=this.itemsB.filter((item)=>{
+        this.cacherB=false;
+        this.itemsB=this.itemsB.filter((item)=>{   
+          console.log(this.itemsB);
+          /*for(var i=0;i<this.itemsB.length;++i){
+            if(i>10){
+             this.itemsB.pop();
+            }
+          }*/
         return (item.toLowerCase().indexOf(val.toLowerCase())>-1);
        })
 
+      
+
+      }
+      else{
+        this.cacherB=true;
       }
 
     }
     choixVilleB(item: string){
       this.choixB=item;
       this.keyboard.close();
-      if(this.choixB && this.choixB.trim()!=''){
-        this.itemsB=this.itemsB.filter((item)=>{
-          return (item.toLowerCase().indexOf(this.choixB.toLowerCase())>0);
-        })
-      }
+      this.cacherB=true;
     }
 
 
+    showArrets(){
+      this.navCtrl.push(MapsPage);
+    }
+
+
+
+    verification(){
+      let erreursL= [];
+      let date:boolean=true;
+      if(!this.choixA){
+        erreursL.push("**Veuillez entrer une ville de départ ! ");
+      }
+      if(!this.choixB){
+        erreursL.push("**Veuillez entrer une ville d'arrivée ! ");
+      }
+      if(!this.myDate){
+        erreursL.push("**Veuillez entrer une date de départ ! ");
+      }
+      if(new Date(this.myDate)<this.date){
+        let alert = this.alertCtrl.create({
+          title: 'Attention !',
+          subTitle: 'Date inférieur à la date du jour',
+          buttons: ['Ok']
+        });
+        alert.present();
+        date=false;
+        console.log(this.myDate+" et "+new Date(this.myDate)+" et "+this.date);
+      }
+
+      if(!this.myHour){
+        erreursL.push("**Veuillez entrer une heure de départ !");
+      }
+      
+      if(erreursL.length > 0 || date==false){
+        this.erreurs= erreursL.join('<br/>');
+      }
+      else{
+      this.presentLoadingCustom();
+      }
+    }
+
+    presentLoadingCustom() {
+      let loading = this.loadingCtrl.create({
+        content: 'Vérification du paiement...'
+      });
+    
+      loading.present();
+    
+      setTimeout(() => {
+        
+        loading.dismiss();
+        this.navCtrl.push(HomePage);
+        this.presentToast();
+      }, 3000);
+     
+    }
+
+    presentToast() {
+      let toast = this.toastCtrl.create({
+        message: 'Réservation effectué avec succés! ',
+        duration: 3000,
+        position: 'bottom'
+      });
+    
+      toast.onDidDismiss(() => {
+        console.log('Dismissed toast');
+      });
+    
+      toast.present();
+    }
+
+   
+    
   }  
