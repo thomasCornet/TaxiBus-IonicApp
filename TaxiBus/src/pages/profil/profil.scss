@@ -15,6 +15,14 @@ page-profil {
         font-size: 15px;
         color:#063f8e; 
     }
+    .photo{
+        width: 100px;
+        display: block;
+        margin: auto;
+        margin-top: 20px;
+        vertical-align: center;
+    }
+  
     .valeur{
         color:grey;
         margin-left: 10px;
@@ -31,17 +39,45 @@ page-profil {
     .button.activated {
         background-color:#063f8e;
     }
-    img{
+    #ticket{
         float: left;
         width:20%;
         vertical-align:middle;
         margin-bottom: 10px; 
     }
-    .lieu{
+    
+    .placement{
         margin-top: 5px;
         display:inline-block;
         margin-left: 10px;
         font-size: 15px;
     }
+    .profil{
+        color:#063f8e;
+        width: 140px;
+        font-size: 20px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        vertical-align: center;
+    }
+    .chapitre{
+        font-size: 10vw;
+    }
+    
+    .titreList{
+        font-size: 17px;
+    }
+    .rectangle{
+        width:100px;
+        height:5px;
+        background-color:#063f8e;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+  
+  
  }
     

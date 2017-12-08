@@ -11,11 +11,13 @@ import { HomePage } from '../pages/home/home';
 import { HorairePage } from '../pages/horaire/horaire';
 import { PrixPage } from '../pages/prix/prix';
 import { ProfilPage } from '../pages/profil/profil';
+import { ModalPage } from '../pages/profil/ModalPage/modal';
 import {MapsPage} from '../pages/home/maps/maps';
 import {ModifierPage} from '../pages/profil/modifier/modifier';
 import {LoginPage} from '../pages/login/login';
 import {ReserverPage} from '../pages/home/reserver/reserver';
 import {InformationPage} from '../pages/home/information/information';
+import {PicturePage} from '../pages/profil/ModalPicturePage/modal-picture';
 
 //googleMap
 import {GoogleMaps} from '@ionic-native/google-maps';
@@ -26,6 +28,8 @@ import { LocationAccuracy } from '@ionic-native/location-accuracy';
 import {UserApiService} from '../services/userapi.service';
 import {HttpModule} from '@angular/http';
 
+//image picker
+import { PhotoLibrary } from '@ionic-native/photo-library';
 
 @NgModule({
   declarations: [
@@ -35,6 +39,8 @@ import {HttpModule} from '@angular/http';
     PrixPage,
     ProfilPage,
     TabsPage,
+    PicturePage,
+    ModalPage,
     MapsPage,
     ModifierPage,
     LoginPage,
@@ -53,7 +59,9 @@ import {HttpModule} from '@angular/http';
     HorairePage,
     PrixPage,
     ProfilPage,
+    PicturePage,
     TabsPage,
+    ModalPage,
     MapsPage,
     ModifierPage,
     LoginPage,
@@ -65,6 +73,7 @@ import {HttpModule} from '@angular/http';
     SplashScreen,
     GoogleMaps,
     Geolocation,
+    PhotoLibrary,
     LocationAccuracy,
     UserApiService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}

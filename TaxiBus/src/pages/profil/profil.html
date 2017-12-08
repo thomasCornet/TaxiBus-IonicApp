@@ -1,14 +1,16 @@
 <ion-header>
-  <ion-navbar color="danger">
+  <ion-navbar hideBackButton color="danger">
     <ion-title>
       Profil
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  
-  <div padding>
+<ion-content >
+        <img  (tap)="imgChange()" class="photo" src="assets/imgs/{{image}}" />
+        <h1 class="profil">Thomas Cornet</h1>
+       
+  <div padding class="chapitre">
     <ion-segment [(ngModel)]="info">
       <ion-segment-button value="reservation" class="reservation">
         Réservation
@@ -18,7 +20,7 @@
       </ion-segment-button>
     </ion-segment>
   </div>
-
+  
   <div [ngSwitch]="info">
 
      <ion-list *ngSwitchCase="'reservation'" ngSelected="selected">
@@ -30,45 +32,50 @@
         <ion-card-content>
             <p>
               <img id="ticket"src="assets/imgs/ticket.png">
-                <span class="lieu">D : 404 - Hotel de Ville <br/> A : 202 - Rue Nicholson</span>
-            </p>        
+              <span class="placement">D : 404 - Hotel de Ville <br/> A : 202 - Rue Nicholson</span>
+            </p>     
+
         </ion-card-content>
       </ion-card>
     </ion-list>
 
     <ion-item *ngSwitchCase="'information'">
-      
-       <div class="champ">
-         <h1 class="titre">Numero de carte :</h1>
-         <h2 class="valeur">45235194550</h2>
-       </div>
-       <div class="champ">
-         <h1 class="titre">Prenom :</h1>
-         <h2 class="valeur">  {{user.results[0].name.first}}</h2>
-       </div>
-       <div class="champ">
-         <h1 class="titre">Nom :</h1>
-         <h2 class="valeur"> {{user.results[0].name.last}}</h2>
-       </div>
-       <div class="champ">
-         <h1 class="titre">Email :</h1>
-         <h2 class="valeur"> {{user.results[0].email}}</h2>
-       </div>
-       <div class="champ">
-         <h1 class="titre">Telephone :</h1>
-         <h2 class="valeur"> {{user.results[0].cell}}</h2>
-       </div>
-       <div class="champ">
-         <h1 class="titre">Adresse :</h1>
-         <h2 class="valeur">{{user.results[0].location.street}} {{user.results[0].location.city}}</h2>
-       </div>
-       <div class="champ">
-         <h1 class="titre">Mot de passe :</h1>
-         <h2 class="valeur">°°°°°°°°°</h2>
-       </div>
-       <button ion-button color="danger" (tap)="showModifier()" outline>Modifier</button>
+        
+            <ion-list>
+                <ion-list-header class="titreList">
+                  Préférence
+                </ion-list-header>
+                <a ion-item (click)="openModal({choixNum:0})">
+                  Adresse
+                </a>
+                <a ion-item (click)="openModal({choixNum: 1})">
+                  Email
+                </a>
+                <a ion-item (click)="openModal({choixNum: 2})">
+                  Téléphone
+                </a>
+                <a ion-item (click)="openModal({choixNum: 3})">
+                    Mot de passe
+                </a>  
+           <br>
+            
+                <ion-list-header  class="titreList">
+                 Plainte
+                </ion-list-header>
+             
+                <a ion-item (click)="plainte()">
+                    Formuler une plainte
+                </a>
+            <br>
+            
+                <ion-list-header class="titreList">
+                    A propos
+                </ion-list-header>
+                  <a ion-item (click)="aPropos()">
+                     Nous joindre
+                  </a>
+            </ion-list>
+     
      </ion-item>
-
-
-  </div>
+    </div>
 </ion-content>

@@ -28,8 +28,8 @@ import { AlertController } from 'ionic-angular';
     private minutes:String[]=["00,10,20,30,40"];
     private date=new Date();
     private dateAnnee= this.date.getFullYear();
-    private dateJour=this.date.getDate();
-    private Jour=this.date.getDay();
+    
+   
 
     constructor(public navCtrl: NavController, public platform: Platform  , private alertCtrl: AlertController, private toastCtrl: ToastController,public keyboard: Keyboard,public loadingCtrl: LoadingController) {
 
@@ -128,16 +128,27 @@ import { AlertController } from 'ionic-angular';
     verification(){
       let erreursL= [];
       let date:boolean=true;
+      let dateF=new Date();
+      let monTemps:any; 
+      let heureChoix:any;
+      let heure=dateF.getHours();
+      let minute=dateF.getMinutes();
+      let dateAnnee= dateF.getFullYear();
+      let dateJour=dateF.getDate();
+      let heureActu=heure*60+minute;
+
       if(!this.choixA){
         erreursL.push("**Veuillez entrer une ville de départ ! ");
       }
       if(!this.choixB){
         erreursL.push("**Veuillez entrer une ville d'arrivée ! ");
+        console.log(heureActu+" choix "+heureChoix);
       }
       if(!this.myDate){
         erreursL.push("**Veuillez entrer une date de départ ! ");
       }
-      if(new Date(this.myDate)<this.date){
+      
+      if( new Date(this.myDate).getDate()+1<dateJour){
         let alert = this.alertCtrl.create({
           title: 'Attention !',
           subTitle: 'Date inférieur à la date du jour',
@@ -145,11 +156,24 @@ import { AlertController } from 'ionic-angular';
         });
         alert.present();
         date=false;
-        console.log(this.myDate+" et "+new Date(this.myDate)+" et "+this.date);
+        console.log(this.myDate+" et "+new Date(this.myDate+"Z")+" et "+this.date+" date du jour: "+dateJour+" date: "+ new Date(this.myDate).getDate());
       }
 
       if(!this.myHour){
         erreursL.push("**Veuillez entrer une heure de départ !");
+      }
+      else{
+        monTemps=this.myHour.split(":");
+        heureChoix=Number(monTemps[0])*60+Number(monTemps[1]);
+      }
+      if((heureChoix-heureActu)<60){
+        let alert = this.alertCtrl.create({
+          title: 'Attention !',
+          subTitle: "Cette heure n'est plus disponible aujourd'hui !",
+          buttons: ['Ok']
+        });
+        alert.present();
+        date=false;
       }
       
       if(erreursL.length > 0 || date==false){
@@ -184,7 +208,7 @@ import { AlertController } from 'ionic-angular';
       });
     
       toast.onDidDismiss(() => {
-        console.log('Dismissed toast');
+        console.log('Toast Visualisé ! ');
       });
     
       toast.present();
