@@ -7,9 +7,10 @@ import {ProfilPage} from '../../profil/profil';
     templateUrl: 'modal-picture.html'
   })
 export class PicturePage {
-    numChoix;
-    choix;
-    images=['boy.png','girl.png','man.png','woman.png'];
+    private numChoix;
+    private choix;
+    private images=['boy.png','girl.png','man.png','woman.png'];
+    
     constructor(public params: NavParams,public viewCtrl: ViewController,public navCtrl: NavController) {
         var choix=[
             {name:"Avatar"},

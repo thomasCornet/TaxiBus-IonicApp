@@ -1,25 +1,25 @@
 <ion-header>
-        <ion-navbar color="danger">
-          <ion-title>
-           Tarifs
-          </ion-title>
-        </ion-navbar>
-      </ion-header>
-      
-      <ion-content padding>
-       <h1 class="titre">Tarifs</h1>
-       <p>ALLER SIMPLE DANS UN MÊME SECTEUR : <span class="prix">4,40 $</span></p>
-       <div class="rectangle"></div>
-       <p>ALLER SIMPLE CHANGEMENT DE SECTEUR DE 5 KM ET MOINS : <span class="prix">4,40 $</span></p>
-       <div class="rectangle"></div>
-       <p>ALLER SIMPLE CHANGEMENT DE SECTEUR 5 KM ET PLUS : <span class="prix">5,75 $</span></p>
-       <div class="rectangle"></div>
-       <p>ALLER SIMPLE CHANGEMENT DE SECTEUR 10 KM ET PLUS : <span class="prix">6,75 $</span></p>
-       <div class="rectangle"></div>
-       <p>LAISSEZ-PASSER MENSUEL : <span class="prix">104,00 $</span>. CE LAISSEZ-PASSER EST VALIDE DU 1ER JOUR DU MOIS EN VIGUEUR JUSQU’AU 
-         DERNIER JOUR DU MÊME MOIS. PEU IMPORTE LE MOMENT DE L’ACHAT DU LAISSEZ-PASSER, CE DERNIER EXPIRE LA DERNIÈRE JOURNÉE DE CHAQUE MOIS. 
-         CELUI-CI VOUS PERMET D’UTILISER LE TAXIBUS DE FAÇON ILLIMITÉE DURANT LE MOIS.</p>
-       <div class="rectangle"></div>
-       <p>ENFANT DE 1 À 12 ANS ACCOMPAGNÉ : <span class="prix"> GRATUIT</span></p>
-      </ion-content>
-      
+  <ion-navbar color="danger">
+    <ion-title>
+      Tarifs
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+        
+<ion-content padding>
+  <ion-card *ngFor="let trajet of trajets; ">
+    <ion-item style="height:60px;">
+      <ion-thumbnail style="margin-top:30px;" item-start>
+        <img style="height: 60px; width:60px;" src="assets/imgs/{{trajet.image}}">
+      </ion-thumbnail>
+      <h2>{{trajet.titre}}</h2>
+        <p style=" color:	#FF0000;"><b>{{trajet.prix}}</b></p>
+    </ion-item>
+                   
+    <ion-card-content>
+      <p style="margin-left: 90px;">{{trajet.description}}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+  

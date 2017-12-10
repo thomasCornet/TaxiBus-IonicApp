@@ -7,8 +7,8 @@ import { PhotoLibrary } from '@ionic-native/photo-library';
     templateUrl: 'modal.html'
   })
   export class ModalPage {
-    choix;
-    numChoix;
+    private choix;
+    private numChoix;
     constructor(public params: NavParams,public viewCtrl: ViewController,public navCtrl: NavController, private photoLibrary: PhotoLibrary){
         var choix=[
                    {name:"Adresse"},

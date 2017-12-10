@@ -1,0 +1,46 @@
+<ion-header>
+    <ion-navbar  color="danger">
+      <ion-title>
+        Formuler votre plainte
+      </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    
+    <ion-item>
+        <ion-label color="primary" stacked>Prénom et nom de l'usager</ion-label>
+        <ion-input type="text" [(ngModel)]="nom" placeholder="Prénom/Nom"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label color="primary" stacked>Numéro de l'usager</ion-label>
+        <ion-input type="text"[(ngModel)]="numero"  placeholder="Numéro d'usager"></ion-input>
+    </ion-item>
+
+    <ion-item>
+            <ion-label color="primary" stacked>Date de l'incident</ion-label>
+            <ion-input type="text" [(ngModel)]="date"  placeholder="JJ/MM/AAAA"></ion-input>
+    </ion-item>
+    <ion-item>
+            <ion-label color="primary" stacked>Nom de la répartitrice/chauffeur</ion-label>
+            <ion-input type="text" [(ngModel)]="chauffeur" placeholder="Nom du chauffeur"></ion-input>
+    </ion-item> <br>
+    <h6>Témoins</h6>
+    <ion-item>
+            <ion-label color="primary" stacked>Nom</ion-label>
+            <ion-input type="text" [(ngModel)]="temoin" placeholder="Nom"></ion-input>
+    </ion-item>
+    <ion-item>
+            <ion-label color="primary" stacked>Activité au moment de l'incident</ion-label>
+            <ion-input type="text" [(ngModel)]="activite" placeholder="Activité"></ion-input>
+    </ion-item>
+    <ion-item>
+            <ion-label color="primary" stacked>Détails</ion-label>
+            <ion-textarea [(ngModel)]="details" >Détails</ion-textarea>
+          
+    </ion-item>   
+
+    <button (click)="envoyer()" ion-button>Envoyer</button>
+    <div   style="display:block; margin-top:5%;color:red;" [innerHTML]="erreurs" class="errorContainer"></div>
+</ion-content>

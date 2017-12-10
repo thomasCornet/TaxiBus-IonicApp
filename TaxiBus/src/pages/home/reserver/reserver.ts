@@ -6,6 +6,7 @@ import { HomePage } from '../home';
 import { ToastController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 
+
 @Component({
     selector: 'page-reserver',
     templateUrl: 'reserver.html'
@@ -181,8 +182,11 @@ import { AlertController } from 'ionic-angular';
       }
       else{
       this.presentLoadingCustom();
+     
       }
     }
+
+   
 
     presentLoadingCustom() {
       let loading = this.loadingCtrl.create({
@@ -213,6 +217,7 @@ import { AlertController } from 'ionic-angular';
     
       toast.present();
     }
+
 
    
     

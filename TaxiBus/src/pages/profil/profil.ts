@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { NavParams,NavController} from 'ionic-angular';
-import {ModifierPage} from "./modifier/modifier";
 import {UserApiService} from '../../services/userapi.service';
 import {UserApiGlobal} from '../../models/userapi.global';
 import {ModalPage} from '../profil/ModalPage/modal';
+import { PlaintePage } from './Plainte/plainte';
 
 @Component({
   selector: 'page-profil',
@@ -11,9 +11,9 @@ import {ModalPage} from '../profil/ModalPage/modal';
 })
 export class ProfilPage {
 
-  user: UserApiGlobal = new UserApiGlobal();
-  info:string;
-  image;
+  private user: UserApiGlobal = new UserApiGlobal();
+  private info:string;
+  private image;
 
   constructor(public params: NavParams,public navCtrl: NavController, private userApiService : UserApiService) {
     
@@ -34,10 +34,6 @@ export class ProfilPage {
      }
    
   }
-  showModifier(){
-    this.navCtrl.push(ModifierPage);
-  }
-
   openModal(choixNum) {
      this.navCtrl.push(ModalPage,{choixNum:choixNum});
       }
@@ -48,5 +44,8 @@ export class ProfilPage {
 
   imgChange(){
     this.navCtrl.push(ModalPage,{choixNum:5});
+  }
+  plainte(){
+    this.navCtrl.push(PlaintePage);
   }
 }

@@ -13,12 +13,11 @@ import { PrixPage } from '../pages/prix/prix';
 import { ProfilPage } from '../pages/profil/profil';
 import { ModalPage } from '../pages/profil/ModalPage/modal';
 import {MapsPage} from '../pages/home/maps/maps';
-import {ModifierPage} from '../pages/profil/modifier/modifier';
 import {LoginPage} from '../pages/login/login';
 import {ReserverPage} from '../pages/home/reserver/reserver';
 import {InformationPage} from '../pages/home/information/information';
 import {PicturePage} from '../pages/profil/ModalPicturePage/modal-picture';
-
+import {PlaintePage}from '../pages/profil/Plainte/plainte';
 //googleMap
 import {GoogleMaps} from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -31,6 +30,9 @@ import {HttpModule} from '@angular/http';
 //image picker
 import { PhotoLibrary } from '@ionic-native/photo-library';
 
+//send Emails
+import { EmailComposer } from '@ionic-native/email-composer';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -42,8 +44,8 @@ import { PhotoLibrary } from '@ionic-native/photo-library';
     PicturePage,
     ModalPage,
     MapsPage,
-    ModifierPage,
     LoginPage,
+    PlaintePage,
     ReserverPage,
     InformationPage
   ],
@@ -63,8 +65,8 @@ import { PhotoLibrary } from '@ionic-native/photo-library';
     TabsPage,
     ModalPage,
     MapsPage,
-    ModifierPage,
     LoginPage,
+    PlaintePage,
     ReserverPage,
     InformationPage
   ],
@@ -73,6 +75,7 @@ import { PhotoLibrary } from '@ionic-native/photo-library';
     SplashScreen,
     GoogleMaps,
     Geolocation,
+    EmailComposer,
     PhotoLibrary,
     LocationAccuracy,
     UserApiService,
