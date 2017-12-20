@@ -12,6 +12,7 @@ import { HorairePage } from '../pages/horaire/horaire';
 import { PrixPage } from '../pages/prix/prix';
 import { ProfilPage } from '../pages/profil/profil';
 import { ModalPage } from '../pages/profil/ModalPage/modal';
+import { ModalPageLogin } from '../pages/login/ModalPage/modalLogin';
 import {MapsPage} from '../pages/home/maps/maps';
 import {LoginPage} from '../pages/login/login';
 import {ReserverPage} from '../pages/home/reserver/reserver';
@@ -27,11 +28,17 @@ import { LocationAccuracy } from '@ionic-native/location-accuracy';
 import {UserApiService} from '../services/userapi.service';
 import {HttpModule} from '@angular/http';
 
+//new api
+import { HttpClientModule } from '@angular/common/http';
+import { HTTP } from '@ionic-native/http';
 //image picker
 import { PhotoLibrary } from '@ionic-native/photo-library';
 
 //send Emails
 import { EmailComposer } from '@ionic-native/email-composer';
+
+//storage native
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @NgModule({
   declarations: [
@@ -43,6 +50,7 @@ import { EmailComposer } from '@ionic-native/email-composer';
     TabsPage,
     PicturePage,
     ModalPage,
+    ModalPageLogin,
     MapsPage,
     LoginPage,
     PlaintePage,
@@ -50,6 +58,7 @@ import { EmailComposer } from '@ionic-native/email-composer';
     InformationPage
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp)
@@ -61,6 +70,7 @@ import { EmailComposer } from '@ionic-native/email-composer';
     HorairePage,
     PrixPage,
     ProfilPage,
+    ModalPageLogin,
     PicturePage,
     TabsPage,
     ModalPage,
@@ -76,9 +86,11 @@ import { EmailComposer } from '@ionic-native/email-composer';
     GoogleMaps,
     Geolocation,
     EmailComposer,
+    NativeStorage,
     PhotoLibrary,
     LocationAccuracy,
     UserApiService,
+    HTTP,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

@@ -19,10 +19,13 @@ export class PicturePage {
         this.choix=choix[this.params.get('choixNum').choixNum]; 
         this.numChoix=this.params.get('choixNum').choixNum;
     }
+    
     dismiss() {
         this.viewCtrl.dismiss();
       }
+
     choixImage(image){
         this.navCtrl.push(ProfilPage,{image:image});
     }
+
   }

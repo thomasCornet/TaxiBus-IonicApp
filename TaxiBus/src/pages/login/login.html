@@ -1,20 +1,23 @@
 
     <ion-content scroll="false" padding>
         <img id="voiture"src="assets/imgs/taxibuslogo.png">
-        <ion-item>
-            <ion-label floating class="login">Username</ion-label>
-            <ion-input type="text"></ion-input>
-        </ion-item>
+        <form (submit)="verifLogin()">
+            <ion-item>
+                <ion-label floating class="login">Email</ion-label>
+                <ion-input [(ngModel)]="loginData.username" name="username" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label  floating class="password">Password</ion-label>
+                <ion-input [(ngModel)]="loginData.password" name="password" type="password"></ion-input>
+            </ion-item>  
+            <button ion-button color="primary" type="submit">Entrer</button> 
+        </form>
 
-        <ion-item>
-            <ion-label floating class="password">Password</ion-label>
-            <ion-input type="password"></ion-input>
-        </ion-item>
-        
-        <button ion-button color="primary" (tap)="verifyLogin()">LogIn</button>
         <div class="pass">
-        <a class="sup" onclick=""> Forget your password ?</a>
+        <a class="sup"  (click)="compte({choix:0})"> Vous n'avez pas de mot de passe ?</a>
         <ion-item-divider color="primary"></ion-item-divider>
-        <a class="sup" onclick=""> Sign Up</a>
+        <a class="sup" (click)="compte({choix:0})"> Mot de passe oublié ?</a>
+        <ion-item-divider color="primary"></ion-item-divider>
+        <a class="sup" (click)="compte({choix:1})"> S'inscrire</a>
         </div>
 </ion-content>

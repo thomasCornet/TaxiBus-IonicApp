@@ -1,0 +1,32 @@
+<ion-header>
+        <ion-toolbar>
+          <ion-title>
+         {{titre.titre}}
+          </ion-title>
+          <ion-buttons start>
+            <button ion-button (click)="dismiss()">
+              <span ion-text color="primary" showWhen="ios">Cancel</span>
+              <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+            </button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content padding>
+         <div *ngIf="numChoix==0">
+            <ion-list>
+                <ion-item>  
+                    <ion-label color="primary">Eamil:</ion-label>
+                    <ion-input type="text" placeholder="Email"></ion-input>
+                </ion-item>
+                <ion-item>  
+                    <ion-label color="primary">Nouveau mot de passe:</ion-label>
+                    <ion-input type="password" placeholder="Mot de passe"></ion-input>
+                </ion-item>
+                <ion-item>  
+                    <ion-label color="primary">Confirmer mot de passe:</ion-label>
+                    <ion-input type="password" placeholder="Mot de passe"></ion-input>
+                </ion-item>
+            </ion-list>
+            <button ion-button round >Enregistrer</button>
+        </div>
+        </ion-content>
