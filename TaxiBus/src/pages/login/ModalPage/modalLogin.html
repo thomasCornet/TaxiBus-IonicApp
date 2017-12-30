@@ -1,5 +1,5 @@
-<ion-header>
-        <ion-toolbar>
+<ion-header >
+        <ion-toolbar >
           <ion-title>
          {{titre.titre}}
           </ion-title>
@@ -11,22 +11,91 @@
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
-      <ion-content padding>
+      <ion-content >
+
          <div *ngIf="numChoix==0">
-            <ion-list>
+            <ion-list padding> 
                 <ion-item>  
-                    <ion-label color="primary">Eamil:</ion-label>
-                    <ion-input type="text" placeholder="Email"></ion-input>
+                    <ion-label color="primary">Email:</ion-label>
+                    <ion-input type="email" [(ngModel)]="email" placeholder="Email"></ion-input>
                 </ion-item>
                 <ion-item>  
-                    <ion-label color="primary">Nouveau mot de passe:</ion-label>
-                    <ion-input type="password" placeholder="Mot de passe"></ion-input>
+                    <ion-label color="primary">Numéro d'usager:</ion-label>
+                    <ion-input type="number" [(ngModel)]="numero" placeholder="Numéro"></ion-input>
+                </ion-item>
+                <ion-item>  
+                    <ion-label color="primary">Numéro de mobile:</ion-label>
+                    <ion-input type="number" [(ngModel)]="mobile" placeholder="Numéro de mobile"></ion-input>
+                </ion-item>
+                <ion-item>  
+                    <ion-label color="primary">Mot de passe:</ion-label>
+                    <ion-input type="password" [(ngModel)]="mdp" placeholder="Mot de passe"></ion-input>
                 </ion-item>
                 <ion-item>  
                     <ion-label color="primary">Confirmer mot de passe:</ion-label>
-                    <ion-input type="password" placeholder="Mot de passe"></ion-input>
+                    <ion-input type="password" [(ngModel)]="mdpValid" placeholder="Mot de passe"></ion-input>
                 </ion-item>
             </ion-list>
-            <button ion-button round >Enregistrer</button>
+            <button ion-button round (click)="verif()">Enregistrer</button>
+            <div   style="display:block; margin-top:5%;color:red;" [innerHTML]="erreurs" class="errorContainer"></div>
+        </div>
+
+
+        <div *ngIf="numChoix==1">
+            <ion-list padding> 
+                <a>Veuillez indiquer votre numéro d'usager</a><br><br>
+                <ion-item>  
+                    <ion-label color="primary">Numero Usager:</ion-label>
+                    <ion-input type="text" [(ngModel)]="numero" placeholder="Numero usager"></ion-input>
+                </ion-item>
+            </ion-list>
+            <button ion-button round (click)="verifId()">Entrer</button>
+            <div   style="display:block; margin-top:5%;color:red;" [innerHTML]="erreurs" class="errorContainer"></div>
+
+        </div>
+        <div *ngIf="numChoix==2">
+                <ion-list padding>
+                        <ion-item>  
+                            <ion-label color="primary">Nom:</ion-label>
+                            <ion-input type="text" [(ngModel)]="nom" placeholder="Nom"></ion-input>
+                        </ion-item>
+                        <ion-item>  
+                            <ion-label color="primary">Email:</ion-label>
+                            <ion-input type="email" [(ngModel)]="email" placeholder="Email"></ion-input>
+                        </ion-item>
+                        <ion-item>  
+                            <ion-label color="primary">Date de naissance:</ion-label>
+                            <ion-input type="date" [(ngModel)]="naissance" placeholder="jj/mm/aaaa"></ion-input>
+                        </ion-item>
+                        <ion-item>  
+                            <ion-label color="primary">Numéro de  mobile:</ion-label>
+                            <ion-input type="number" [(ngModel)]="mobile" placeholder="Numéro de mobile"></ion-input>
+                        </ion-item>
+                        <br>
+                        <ion-item>  
+                            <ion-label color="primary">Adresse:</ion-label>
+                            <ion-input type="text" [(ngModel)]="adresse" placeholder="Adresse"></ion-input>
+                        </ion-item>
+                        <ion-item>  
+                            <ion-label color="primary">Ville:</ion-label>
+                            <ion-input type="text" [(ngModel)]="ville" placeholder="Ville"></ion-input>
+                        </ion-item>
+                        <ion-item>  
+                            <ion-label color="primary">Code postal:</ion-label>
+                            <ion-input type="text" [(ngModel)]="postal" placeholder="Code postal"></ion-input>
+                        </ion-item>
+                        <br>
+                        <ion-item>  
+                            <ion-label color="primary">Mot de passe:</ion-label>
+                            <ion-input type="password" [(ngModel)]="mdp" placeholder="Mot de passe"></ion-input>
+                        </ion-item>
+                        <ion-item>  
+                            <ion-label color="primary">Confirmer mot de passe:</ion-label>
+                            <ion-input type="password" [(ngModel)]="mdpValid" placeholder="Mot de passe"></ion-input>
+                        </ion-item>
+                    </ion-list>
+                    <button ion-button round (click)="verifIns()">S'inscrire</button>
+                    <div   style="display:block; margin-top:5%;color:red;" [innerHTML]="erreurs" class="errorContainer"></div>
+
         </div>
         </ion-content>

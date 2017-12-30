@@ -3,12 +3,17 @@
     <ion-title>
       Tarifs
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="seDeco()">
+        <ion-icon  name="log-out"></ion-icon>
+      </button>
+  </ion-buttons>
   </ion-navbar>
 </ion-header>
         
 <ion-content padding>
   <ion-card *ngFor="let trajet of trajets; ">
-    <ion-item style="height:60px;">
+    <ion-item style="height:10%;">
       <ion-thumbnail style="margin-top:30px;" item-start>
         <img style="height: 60px; width:60px;" src="assets/imgs/{{trajet.image}}">
       </ion-thumbnail>

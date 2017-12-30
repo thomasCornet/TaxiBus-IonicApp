@@ -13,28 +13,30 @@
   </ion-header>
   
   <ion-content padding>
-    <div *ngIf="numChoix!=4 && numChoix!=5">
+    <div *ngIf="numChoix!=3 && numChoix!=4">
     <ion-list>
         <ion-item>
-          <ion-label color="primary">{{ (numChoix) == 0 ? 'Nouvelle adresse' : (numChoix) == 1 ? 'Nouvel Email' : (numChoix) == 2 ? 'Nouveau téléphone' : 'Ancien mot de passe' }}:</ion-label>
-          <ion-input placeholder="{{choix.name}}"></ion-input>
+          <ion-label color="primary">{{ (numChoix) == 0 ? 'Nouvel Email' : (numChoix) == 1 ? 'Nouveau téléphone' : 'Ancien mot de passe' }}:</ion-label>
+          <ion-input placeholder="{{choix.name}}" [(ngModel)]="information"></ion-input>
         </ion-item>
 
-        <div *ngIf="numChoix==3">
+        <div *ngIf="numChoix==2">
          <ion-item>  
             <ion-label color="primary">Nouveau mot de passe:</ion-label>
-            <ion-input placeholder="{{choix.name}}"></ion-input>
+            <ion-input name="password" [(ngModel)]="secret" placeholder="{{choix.name}}"></ion-input>
          </ion-item>
          <ion-item>  
                 <ion-label color="primary">Confirmer mot de passe:</ion-label>
-                <ion-input placeholder="{{choix.name}}"></ion-input>
+                <ion-input [(ngModel)]="secret2" placeholder="{{choix.name}}"></ion-input>
              </ion-item>
         </div>
     </ion-list>
-    <button ion-button round >Enregistrer</button>
+    <div   style="display:block; margin-top:5%;color:red;" [innerHTML]="erreurs" class="errorContainer"></div>
+    <button ion-button round *ngIf="numChoix==0 || numChoix==1" (click)="verifInfo()" >Enregistrer</button>
+    <button ion-button round *ngIf="numChoix==2" (click)="verif()" >Enregistrer</button>
 
     </div>
-    <div *ngIf="numChoix==4">
+    <div *ngIf="numChoix==3">
             <p class="zone">
                     <b>Réservation:</b> 450 370 0600 <br>
                     taxibusvalleyfield@taxibusvalleyfield.com <br><br>
@@ -50,13 +52,14 @@
             <img src="assets/imgs/logo-ministere.png">
     </div>
 
-    <div *ngIf="numChoix==5">
+    <div *ngIf="numChoix==4">
         <a ion-item (click)="openModalPicture({choixNum:0})">
             Avatar
         </a>
-        <a ion-item (click)="openGallery()">
+        <a ion-item (click)="openModalPicture({choixNum:1})">
             Galerie
         </a>
 
     </div>
+
   </ion-content>

@@ -1,10 +1,10 @@
 
 export class UserApiProfil{
-    adresse: String;
-    ville: String;
-    courriel:String;
     nom: String;
+    numero: String;
+    email:String;
+    paiement: String;
     telephone : string;
-    numero_usager : string;
+   
 
 }

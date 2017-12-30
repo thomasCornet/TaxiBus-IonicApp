@@ -20,7 +20,7 @@
 
     <ion-item>
             <ion-label color="primary" stacked>Date de l'incident</ion-label>
-            <ion-input type="text" [(ngModel)]="date"  placeholder="JJ/MM/AAAA"></ion-input>
+            <ion-input type="date" [(ngModel)]="date"  placeholder="JJ/MM/AAAA"></ion-input>
     </ion-item>
     <ion-item>
             <ion-label color="primary" stacked>Nom de la répartitrice/chauffeur</ion-label>
@@ -41,7 +41,7 @@
           
     </ion-item>   
 
-    <button (click)="envoyer()" ion-button>Envoyer</button>
+    <button (click)="verificationDate()" ion-button>Envoyer</button>
     <div   style="display:block; margin-top:5%;color:red;" [innerHTML]="erreurs" class="errorContainer"></div>
 
 </ion-content>

@@ -28,6 +28,7 @@ import { LocationAccuracy } from '@ionic-native/location-accuracy';
 import {UserApiService} from '../services/userapi.service';
 import {HttpModule} from '@angular/http';
 
+
 //new api
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP } from '@ionic-native/http';
@@ -39,6 +40,9 @@ import { EmailComposer } from '@ionic-native/email-composer';
 
 //storage native
 import { NativeStorage } from '@ionic-native/native-storage';
+
+//SMS verification
+import { SMS } from '@ionic-native/sms';
 
 @NgModule({
   declarations: [
@@ -89,8 +93,10 @@ import { NativeStorage } from '@ionic-native/native-storage';
     NativeStorage,
     PhotoLibrary,
     LocationAccuracy,
+    SMS,
     UserApiService,
     HTTP,
+    
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

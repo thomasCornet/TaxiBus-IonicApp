@@ -1,7 +1,7 @@
 export class UserApiMap{
     nom:string;
     numero:string;
-    longitude: string;
-    latitude: string;
+    longitude: number;
+    latitude: number;
 
 }

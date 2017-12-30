@@ -3,8 +3,8 @@ import { NavController, Platform,Keyboard } from 'ionic-angular';
 import { LocationAccuracy } from '@ionic-native/location-accuracy';
 import {GoogleMaps, GoogleMap, GoogleMapsEvent, GoogleMapOptions, CameraPosition, MarkerOptions, Marker } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
-import * as TreeMapping from '../../../models/tree.mapping';
-
+import { NativeStorage } from '@ionic-native/native-storage';
+import {UserApiMap}from '../../../models/user.api.map';
 @Component({
   selector: 'page-maps',
   templateUrl: 'maps.html'
@@ -12,7 +12,7 @@ import * as TreeMapping from '../../../models/tree.mapping';
 
 export class MapsPage {
   private map: GoogleMap;
-  private trees: TreeMapping.Treemap[];
+  private trees=[];
   private lat: number;
   private lng: number;
   private lati:number;
@@ -36,12 +36,17 @@ export class MapsPage {
     {lat: 41.79883, lng: 140.75673}
   ];
 
-  constructor(public navCtrl: NavController,private locationAccuracy: LocationAccuracy, private googleMaps: GoogleMaps,public platform: Platform  ,public keyboard: Keyboard,private geolocation: Geolocation) {
-   
-    
-    this.trees=TreeMapping.TreeMappingList;
-    console.log(this.trees);
+  constructor(private nativeStorage: NativeStorage,public navCtrl: NavController,private locationAccuracy: LocationAccuracy, private googleMaps: GoogleMaps,public platform: Platform  ,public keyboard: Keyboard,private geolocation: Geolocation) {
+  
     platform.ready().then(() =>{
+      nativeStorage.getItem('trees')
+      .then(
+        tree =>{
+          this.trees=tree.tree;
+         }
+      );
+      
+      console.log(this.trees);
       
       //demande d'activation localisation
       this.locationAccuracy.canRequest().then((canRequest: boolean) => {
@@ -50,7 +55,7 @@ export class MapsPage {
             // the accuracy option will be ignored by iOS
             this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
               () => this.maPos(),
-              error => console.log('Error requesting location permissions', error)
+              error => console.log('Erreur de localisation', error)
             );
           }
       });        
@@ -65,7 +70,7 @@ export class MapsPage {
     }
       
   }
-
+ 
 
   maPos(){
     this.geolocation.getCurrentPosition().then((pos) => {
@@ -74,7 +79,7 @@ export class MapsPage {
   )};
 
   loadMap(lat:number,lng:number) {
-   
+    
     console.log("les coord ok:"+lat+"lng"+lng);
 
         let mapOptions: GoogleMapOptions = {
@@ -121,16 +126,16 @@ export class MapsPage {
       }
     
 
-    private addMarkerOnMap(tree: TreeMapping.Treemap){
+    private addMarkerOnMap(tree: UserApiMap){
 
       this.map.addMarker({       
-        title: tree.name,
+        title: tree.nom,
         snippet:"Numéro de l'arrêt: "+tree.numero,
         icon: 'red',
         animation: 'DROP',
         position: {
-          lat: tree.lat,
-          lng: tree.lng
+          lat: tree.latitude,
+          lng: tree.longitude
         }
 
       });
@@ -147,7 +152,7 @@ export class MapsPage {
     rechercheInTree(ev:any){
       let val=ev.target.value;
       this.initialisationItems();
-      
+     
       if(val && val.trim()!=''){
        this.items=this.items.filter((item)=>{
          return (item.toLowerCase().indexOf(val.toLowerCase())>-1);

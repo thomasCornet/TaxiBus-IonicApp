@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController,AlertController,App} from 'ionic-angular';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-horaire',
@@ -7,8 +8,28 @@ import { NavController } from 'ionic-angular';
 })
 export class HorairePage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(public app: App,public navCtrl: NavController,private alertCtrl: AlertController) {
 
+  }
+  seDeco(){
+    let alert = this.alertCtrl.create({
+      title: 'Déconnection !',
+      subTitle: 'Voulez-vous vraiment vous déconnecter ?',
+      buttons: [{
+        text:'Oui',
+        handler: () => {
+          localStorage.clear();
+          let nav=this.app.getRootNav();
+          nav.setRoot(LoginPage);
+        }
+      },
+      {
+        text:'Non'
+    }]
+    });
+    alert.present();
+
+    
   }
 
 }

@@ -1,8 +1,13 @@
 <ion-header>
-  <ion-navbar hideBackButton color="danger">
+  <ion-navbar hideBackButton color="danger" >
     <ion-title>
       Profil
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="seDeco()">
+        <ion-icon  name="log-out"></ion-icon>
+      </button>
+  </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -45,16 +50,13 @@
                 <ion-list-header class="titreList">
                   Préférence
                 </ion-list-header>
-                <a ion-item (click)="openModal({choixNum:0})">
-                  Adresse
-                </a>
-                <a ion-item (click)="openModal({choixNum: 1})">
+                <a ion-item (click)="openModal({choixNum: 0})">
                   Email
                 </a>
-                <a ion-item (click)="openModal({choixNum: 2})">
+                <a ion-item (click)="openModal({choixNum: 1})">
                   Téléphone
                 </a>
-                <a ion-item (click)="openModal({choixNum: 3})">
+                <a ion-item (click)="openModal({choixNum: 2})">
                     Mot de passe
                 </a>  
            <br>

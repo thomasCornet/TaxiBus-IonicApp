@@ -1,41 +1,43 @@
 import { Component } from '@angular/core';
-import { NavParams,NavController,Platform} from 'ionic-angular';
+import { NavParams,NavController,Platform,App,AlertController} from 'ionic-angular';
 import {UserApiService} from '../../services/userapi.service';
-import {UserApiGlobal} from '../../models/userapi.global';
 import {ModalPage} from '../profil/ModalPage/modal';
 import { PlaintePage } from './Plainte/plainte';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { UserApiProfil } from '../../models/user.api.profil';
+import { LoginPage } from '../login/login';
+
 @Component({
   selector: 'page-profil',
   templateUrl: 'profil.html'
 })
 export class ProfilPage {
  
-  private user: UserApiGlobal = new UserApiGlobal();
+
+  private data: UserApiProfil = new UserApiProfil();
   private info:string;
   private image;
-  private data :any;
   private nom;
   private solde;
+  private tree= [];
 
-  constructor(private nativeStorage: NativeStorage ,public platform: Platform,public params: NavParams,public navCtrl: NavController, private userApiService : UserApiService) {
+  constructor(private alertCtrl: AlertController,public app: App,private nativeStorage: NativeStorage ,public platform: Platform,public params: NavParams,public navCtrl: NavController, private userApiService : UserApiService) {
     nativeStorage.getItem('info')
     .then(
       data =>{
-        this.nom=data.nom;
-        this.solde=data.paiement;
+        this.data=data;
+        this.nom=this.data.nom;
+        this.solde=this.data.paiement;
        }
     );
+   
     platform.ready().then(() =>{
       
-     this.userApiService.getUser()
-     .then(userFetched => {
-       this.user=userFetched ;
-        console.log(this.user);
         // affiche direct la secion Information
         this.info="reservation";
-     });
+  
     });
+    
      if(!(this.image=this.params.get('image'))){
        this.image="user.png"
      }
@@ -57,5 +59,26 @@ export class ProfilPage {
   }
   plainte(){
     this.navCtrl.push(PlaintePage);
+  }
+
+  seDeco(){
+    let alert = this.alertCtrl.create({
+      title: 'Déconnection !',
+      subTitle: 'Voulez-vous vraiment vous déconnecter ?',
+      buttons: [{
+        text:'Oui',
+        handler: () => {
+          localStorage.clear();
+          let nav=this.app.getRootNav();
+          nav.setRoot(LoginPage);
+        }
+      },
+      {
+        text:'Non'
+    }]
+    });
+    alert.present();
+
+    
   }
 }

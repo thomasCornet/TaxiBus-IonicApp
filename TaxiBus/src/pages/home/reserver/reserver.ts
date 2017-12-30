@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, Platform, Keyboard,LoadingController } from 'ionic-angular';
+import { NavController, Keyboard,LoadingController,ToastController,AlertController } from 'ionic-angular';
 import * as TreeMapping from '../../../models/tree.mapping';
 import {MapsPage} from "../maps/maps";
 import { HomePage } from '../home';
-import { ToastController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
+import { UserApiService } from '../../../services/userapi.service';
 
 
 @Component({
@@ -14,7 +13,7 @@ import { AlertController } from 'ionic-angular';
   
   export class ReserverPage {
 
-    private trees: TreeMapping.Treemap[];
+   
     private items: string[];
     private itemsB: string[];
     private valeur:string='';
@@ -23,6 +22,8 @@ import { AlertController } from 'ionic-angular';
     private myDate: string;
     private myHour: string;
     private erreurs;
+    private choixSD:string;
+    private choixSA:string;
     private cacher: boolean= false;
     private cacherB: boolean= false;
     private heures:String[]=["5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22"];
@@ -30,26 +31,135 @@ import { AlertController } from 'ionic-angular';
     private date=new Date();
     private dateAnnee= this.date.getFullYear();
     
-   
+   private heure_Depart:string[];
+   private heure_Arrivee:string[];
 
-    constructor(public navCtrl: NavController, public platform: Platform  , private alertCtrl: AlertController, private toastCtrl: ToastController,public keyboard: Keyboard,public loadingCtrl: LoadingController) {
+    constructor(private userApiService : UserApiService,public navCtrl: NavController, private alertCtrl: AlertController, private toastCtrl: ToastController,public keyboard: Keyboard,public loadingCtrl: LoadingController) {
 
-      this.trees=TreeMapping.TreeMappingList;
+     
       
-      //Départ
-      this.items=new Array(this.trees.length);
+      //Départ 
       this.cacher=true;
 
       //Arrivée
-      this.itemsB=new Array(this.trees.length);
       this.cacherB=true;
 
     }
 
-    initialisationItems(){
-      for(var i=0;i<this.trees.length;++i){
-        this.items[i]=this.trees[i].name;
-      }
+    secteurChoix(choix){
+      let alert = this.alertCtrl.create();
+      alert.setTitle('Choisissez un secteur !');
+
+      alert.addInput({
+        type: 'radio',
+        label: 'Valleyfield - 100',
+        value: 'Valleyfield - 100',
+        checked:true
+      });
+  
+      alert.addInput({
+        type: 'radio',
+        label: 'Valleyfield - 200',
+        value: 'Valleyfield - 200',
+        
+      });
+      alert.addInput({
+        type: 'radio',
+        label: 'Valleyfield - 300',
+        value: 'Valleyfield - 300'
+      });
+      alert.addInput({
+        type: 'radio',
+        label: 'Valleyfield - 400',
+        value: 'Valleyfield - 400'
+      });
+      alert.addInput({
+        type: 'radio',
+        label: 'Valleyfield - 500',
+        value: 'Valleyfield - 500'
+      });
+      alert.addInput({
+        type: 'radio',
+        label: 'Valleyfield - 600',
+        value: 'Valleyfield - 600'
+      });
+      alert.addInput({
+        type: 'radio',
+        label: 'Grande-Île - 1000',
+        value: 'Grande-Île - 1000'
+      });
+      alert.addInput({
+        type: 'radio',
+        label: 'St-Timothée - 2000',
+        value: 'St-Timothée - 2000',
+        
+      });
+      
+      
+  
+      alert.addButton({
+        text: 'Cancel',
+        handler: data => {
+          if(choix.choix==1){
+            this.choixSD="";
+           this.choixA="";
+           this.items=[]
+          }
+          else{
+            this.choixSA="";
+            this.choixB="";
+            this.itemsB=[]
+         
+          }
+        }
+      });
+      alert.addButton({
+        text: 'Valider',
+        handler: data => {
+          console.log(choix.choix)
+          if(choix.choix==1){
+            this.choixSD=data+"";
+           
+          }
+          else{
+            this.choixSA=data+"";
+         
+          }
+          this.initialisationItems(choix);
+        }
+      });
+      alert.present();
+    
+    }
+
+
+    initialisationItems(choix){
+      if(choix.choix==1){
+      this.userApiService.postPosGpsSecteur(this.choixSD)
+      .then((data)=>{
+        this.items=new Array(Object.keys(data).length);
+        for(var i=0;i<Object.keys(data).length;++i){
+          this.items[i]=data[i].nom
+        }
+        (err) => {    
+          console.log(err)
+        
+          }
+      })      
+    }
+    else{
+      this.userApiService.postPosGpsSecteur(this.choixSA)
+      .then((data)=>{
+        this.itemsB=new Array(Object.keys(data).length);
+        for(var i=0;i<Object.keys(data).length;++i){
+          this.itemsB[i]=data[i].nom
+        }
+        (err) => {    
+          console.log(err)
+        
+          }
+      })  
+    }
     }
 
     //Lieu de départ
@@ -57,9 +167,9 @@ import { AlertController } from 'ionic-angular';
     rechercheInTree(ev:any){
       
       let val=ev.target.value;
-      this.initialisationItems();
       
-      if(val && val.trim()!=''){
+      
+      if(val && val.trim()!='' && this.items){
         this.cacher=false;
         this.items=this.items.filter((item)=>{
             return (item.toLowerCase().indexOf(val.toLowerCase())>-1);          
@@ -81,27 +191,18 @@ import { AlertController } from 'ionic-angular';
 
     //Lieu d'arrivée
 
-    initialisationItemsB(){
-      
-      for(var i=0;i<this.trees.length;++i){
-        this.itemsB[i]=this.trees[i].name;
-      }
-    }
+
 
    rechercheInTreeB(ev:any){
      
       let val=ev.target.value;
-      this.initialisationItemsB();
+
       
-      if(val && val.trim()!=''){
+      if(val && val.trim()!='' && this.itemsB){
         this.cacherB=false;
         this.itemsB=this.itemsB.filter((item)=>{   
           console.log(this.itemsB);
-          /*for(var i=0;i<this.itemsB.length;++i){
-            if(i>10){
-             this.itemsB.pop();
-            }
-          }*/
+          
         return (item.toLowerCase().indexOf(val.toLowerCase())>-1);
        })
 
@@ -199,14 +300,14 @@ import { AlertController } from 'ionic-angular';
         
         loading.dismiss();
         this.navCtrl.push(HomePage);
-        this.presentToast();
+        this.presentToast("ok");
       }, 3000);
      
     }
 
-    presentToast() {
+    presentToast(test:string) {
       let toast = this.toastCtrl.create({
-        message: 'Réservation effectué avec succés! ',
+        message: test,
         duration: 3000,
         position: 'bottom'
       });

@@ -7,16 +7,22 @@
   </ion-header>
   
   <ion-content padding style="margin-top: 5%">
+      <div class="search">
+          <ion-searchbar placeholder="Secteur de départ"  [(ngModel)]="choixSD" (click)="secteurChoix({choix:1})"></ion-searchbar>
+      </div>  
+      
     <div class="searchOne">
       <ion-searchbar placeholder="Lieu de départ" [(ngModel)]="choixA" (ionInput)="rechercheInTree($event)"></ion-searchbar>
     </div>
-      <ion-list *ngIf="!cacher">
-          
+      <ion-list *ngIf="!cacher">    
         <button ion-item (click)="choixVille(item)"  *ngFor="let item of items">
           {{ item }}
         </button>   
     
       </ion-list>
+      <div class="search">
+          <ion-searchbar placeholder="Secteur d'arrivée"  [(ngModel)]="choixSA" (click)="secteurChoix({choix:2})"></ion-searchbar>
+      </div>  
       <div class="searchTwo">
       <ion-searchbar placeholder="Lieu d'arrivée"[(ngModel)]="choixB"   (ionInput)="rechercheInTreeB($event)"></ion-searchbar>
     </div>
@@ -41,9 +47,9 @@
         <ion-datetime displayFormat="H:mm" hourValues={{heures}}  [(ngModel)]="myHour"></ion-datetime>
       </ion-item>
     </div>
-
+    <div   style="display:block; margin-top:5%;color:red;" [innerHTML]="erreurs" class="errorContainer"></div>
+    
       <button ion-button color="primary" class="validation" style="display:block; margin-top:13%; margin-left:auto; margin-right:auto" (tap)="verification()" >Réserver</button>
       
-      <div   style="display:block; margin-top:5%;color:red;" [innerHTML]="erreurs" class="errorContainer"></div>
-
+      
   </ion-content>
