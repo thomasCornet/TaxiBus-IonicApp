@@ -45,13 +45,14 @@ export class UserApiService{
 
           this.http.get(this.baseUrl+"arret/liste",options)
           .subscribe(res => {
-            resolve(res.json() as UserApiMap);
+            resolve(res.json());
           }, (err) => {            
             reject(err);
           });
                 
         });
         }
+
         //Récupére les informations des arrêts grace au secteur
         public postPosGpsSecteur(secteur:string){
           return new Promise((resolve, reject) => {  
@@ -63,15 +64,16 @@ export class UserApiService{
 
             this.http.post(this.baseUrl+"arret/recherche",{secteur:secteur},options)
             .subscribe(res => {
-              resolve(res.json() as UserApiMap);
+              resolve(res.json());
             }, (err) => {            
               reject(err);
             });
                   
           });
           }
-          //Récupére les horaires disponible pour un embarquement a un arret précis
-        public postHoraireListe(depart:string,arrivee:string){
+
+        //Récupére l'id de l'arrêts grace au nom
+        public postArretRecherche(nom:string){
           return new Promise((resolve, reject) => {  
             let headers = new Headers();
             headers.append('Authorization','Basic VGVzdF9UQzpqb2prMmQzZDZod2QzNA==');
@@ -79,9 +81,64 @@ export class UserApiService{
             let options = new RequestOptions({ headers: headers });
            
 
-            this.http.post(this.baseUrl+"arret/recherche",{arret_id_embarquement:depart,arret_id_debarquement:arrivee},options)
+            this.http.post(this.baseUrl+"arret/recherche",{nom:nom},options)
             .subscribe(res => {
-              resolve(res.json() as UserApiMap);
+              resolve(res.json());
+            }, (err) => {            
+              reject(err);
+            });
+                  
+          });
+          }
+
+        //Récupére les horaires disponible pour un embarquement a un arret précis
+        public postHoraireListe(depart:number,arrivee:number){
+          return new Promise((resolve, reject) => {  
+            let headers = new Headers();
+            headers.append('Authorization','Basic VGVzdF9UQzpqb2prMmQzZDZod2QzNA==');
+            headers.append('Content-Type', 'application/json');
+            let options = new RequestOptions({ headers: headers });
+           
+
+            this.http.post(this.baseUrl+"horaire/liste",{arret_id_embarquement:depart,arret_id_debarquement:arrivee},options)
+            .subscribe(res => {
+              resolve(res.json()  );
+            }, (err) => {            
+              reject(err);
+            });
+                  
+          });
+        }
+
+         //Récupére le prix a payer pour l'usager
+         public getModePaiement(usager:string,depart:string,arrivee:string){
+          return new Promise((resolve, reject) => {  
+            let headers = new Headers();
+            headers.append('Authorization','Basic VGVzdF9UQzpqb2prMmQzZDZod2QzNA==');
+            headers.append('Content-Type', 'application/json');
+            let options = new RequestOptions({ headers: headers });
+         
+            this.http.get(this.baseUrl+"usager/"+usager+"/detecte-mode-paiement/"+depart+"/"+arrivee,options)
+            .subscribe(res => {
+              resolve(res.json()  );
+            }, (err) => {            
+              reject(err);
+            });
+                  
+          });
+        }
+        
+        //Récupére le prix a payer pour l'usager
+        public postCreationDemandeUsager(paiement:string,date:string,usager:number,route:number,depart:number,arrivee:number){
+          return new Promise((resolve, reject) => {  
+            let headers = new Headers();
+            headers.append('Authorization','Basic VGVzdF9UQzpqb2prMmQzZDZod2QzNA==');
+            headers.append('Content-Type', 'application/json');
+            let options = new RequestOptions({ headers: headers });
+         
+            this.http.post(this.baseUrl+"demande-usager",{mode_paiement:paiement,date_demande:date,usager_id:usager,route_id:route,horaire_id_embarquement:depart,horaire_id_debarquement:arrivee },options)
+            .subscribe(res => {
+              resolve(res.json()  );
             }, (err) => {            
               reject(err);
             });
@@ -105,6 +162,9 @@ export class UserApiService{
               });
         });
       }
+
+      
+      
 
       //permet de créer un mot de passe pour un usager ayant déja un id
       public patchCreationMdp(numero : number, mobile : string, mdp : string, email:string) {
@@ -140,7 +200,7 @@ export class UserApiService{
         });
       }
 
-      //changer informations clients
+      //changer mot de passe
       public patchChangerMotDePasse(numero : number, changement : string) {
         return new Promise((resolve, reject) => {  
           let headers = new Headers();
@@ -157,7 +217,7 @@ export class UserApiService{
           
         } );
       }
-
+      //changer email
       public patchChangerEmail(numero : number, changement : string) {
         return new Promise((resolve, reject) => {  
           let headers = new Headers();
@@ -174,6 +234,7 @@ export class UserApiService{
           
         } );
       }
+      //Changer telephone
       public patchChangerTelephone(numero : number, changement : string) {
         return new Promise((resolve, reject) => {  
           let headers = new Headers();

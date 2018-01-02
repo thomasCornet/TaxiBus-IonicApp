@@ -30,6 +30,7 @@ import {UserApiMap}from '../../models/user.api.map';
   
     this.userApiService.getPosGps().then(result=>
       {
+        let secteur:string;
         let nom : string;
         let numero : string;
         let long : number;
@@ -39,6 +40,7 @@ import {UserApiMap}from '../../models/user.api.map';
         let test:UserApiMap;
         for(var i =0;i<Object.keys(result).length;++i){
           test =new UserApiMap;
+          test.secteur=result[i].secteur;
           test.nom=result[i].nom;
           test.numero=result[i].numero;
           test.latitude=result[i].position_gps.Latitude;

@@ -21,19 +21,21 @@ export class MapsPage {
   private items: string[];
   private valeur:string='';
   private zone = [
-    {lat: 41.79883, lng: 140.75675},
-    {lat: 41.799240000000005, lng: 140.75875000000002},
-    {lat: 41.797650000000004, lng: 140.75905},
-    {lat: 41.79637, lng: 140.76018000000002},
-    {lat: 41.79567, lng: 140.75845},
-    {lat: 41.794470000000004, lng: 140.75714000000002},
-    {lat: 41.795010000000005, lng: 140.75611},
-    {lat: 41.79477000000001, lng: 140.75484},
-    {lat: 41.79576, lng: 140.75475},
-    {lat: 41.796150000000004, lng: 140.75364000000002},
-    {lat: 41.79744, lng: 140.75454000000002},
-    {lat: 41.79909000000001, lng: 140.75465},
-    {lat: 41.79883, lng: 140.75673}
+    {lat:-74.137845,lng:45.2562199},
+    {lat:-74.1263866,lng:45.2426088},
+    {lat:-74.121151,lng:45.244739},
+    {lat:-74.1247559,lng:45.2489993},
+    {lat:-74.1230178,lng:45.2509481},
+    {lat:-74.1219234,lng:45.2511142},
+    {lat:-74.122417,lng:45.2516429},
+    {lat:-74.1244125,lng:45.251507},
+    {lat:-74.1282749,lng:45.2561897},
+    {lat:-74.1280603,lng:45.2567788},
+    {lat:-74.1280603,lng:45.2573527},
+    {lat:-74.129777,lng:45.2572319},
+    {lat:-74.1299057,lng:45.2565371},
+    {lat:-74.137845,lng:45.2562199},
+
   ];
 
   constructor(private nativeStorage: NativeStorage,public navCtrl: NavController,private locationAccuracy: LocationAccuracy, private googleMaps: GoogleMaps,public platform: Platform  ,public keyboard: Keyboard,private geolocation: Geolocation) {
@@ -130,7 +132,7 @@ export class MapsPage {
 
       this.map.addMarker({       
         title: tree.nom,
-        snippet:"Numéro de l'arrêt: "+tree.numero,
+        snippet:"Numéro de l'arrêt: "+tree.numero+", Secteur: "+tree.secteur,
         icon: 'red',
         animation: 'DROP',
         position: {

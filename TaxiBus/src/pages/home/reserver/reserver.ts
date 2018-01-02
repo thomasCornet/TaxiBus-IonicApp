@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, Keyboard,LoadingController,ToastController,AlertController } from 'ionic-angular';
-import * as TreeMapping from '../../../models/tree.mapping';
 import {MapsPage} from "../maps/maps";
 import { HomePage } from '../home';
 import { UserApiService } from '../../../services/userapi.service';
-
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @Component({
     selector: 'page-reserver',
@@ -12,7 +11,6 @@ import { UserApiService } from '../../../services/userapi.service';
   })
   
   export class ReserverPage {
-
    
     private items: string[];
     private itemsB: string[];
@@ -22,21 +20,29 @@ import { UserApiService } from '../../../services/userapi.service';
     private myDate: string;
     private myHour: string;
     private erreurs;
+    private loading: any;
     private choixSD:string;
     private choixSA:string;
     private cacher: boolean= false;
     private cacherB: boolean= false;
-    private heures:String[]=["5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22"];
-    private minutes:String[]=["00,10,20,30,40"];
     private date=new Date();
     private dateAnnee= this.date.getFullYear();
-    
-   private heure_Depart:string[];
-   private heure_Arrivee:string[];
+    private heures=[];
+    private selection;
+    private id_A;
+    private id_B;
+    private data;
+    private paiement;
+    private valeurs;
+    private selectionOptions;
+    private usager_id:number;
+    constructor(private nativeStorage: NativeStorage,private userApiService : UserApiService,public navCtrl: NavController, private alertCtrl: AlertController, private toastCtrl: ToastController,public keyboard: Keyboard,public loadingCtrl: LoadingController) {
 
-    constructor(private userApiService : UserApiService,public navCtrl: NavController, private alertCtrl: AlertController, private toastCtrl: ToastController,public keyboard: Keyboard,public loadingCtrl: LoadingController) {
-
-     
+      nativeStorage.getItem('info')
+      .then(
+        data =>{
+          this.usager_id=data.id
+        });
       
       //Départ 
       this.cacher=true;
@@ -116,14 +122,16 @@ import { UserApiService } from '../../../services/userapi.service';
       alert.addButton({
         text: 'Valider',
         handler: data => {
-          console.log(choix.choix)
           if(choix.choix==1){
             this.choixSD=data+"";
+            this.choixA="";
+            this.items=[]
            
           }
           else{
             this.choixSA=data+"";
-         
+            this.choixB="";
+            this.itemsB=[]
           }
           this.initialisationItems(choix);
         }
@@ -163,7 +171,6 @@ import { UserApiService } from '../../../services/userapi.service';
     }
 
     //Lieu de départ
-
     rechercheInTree(ev:any){
       
       let val=ev.target.value;
@@ -178,6 +185,7 @@ import { UserApiService } from '../../../services/userapi.service';
       }
       else{
         this.cacher=true;
+        this.initialisationItems({choix:1})
       }
 
 
@@ -187,16 +195,20 @@ import { UserApiService } from '../../../services/userapi.service';
       this.choixA=item;
       this.keyboard.close();
       this.cacher=true;
+      this.presentLoadingCustom("Recherche...")
+      this.userApiService.postArretRecherche(this.choixA)
+      .then((data)=>{
+        this.loading.dismiss()
+        this.id_A=data[0].id;
+        console.log("AAAAAAA"+this.id_A)
+      })
     }
 
     //Lieu d'arrivée
-
-
-
    rechercheInTreeB(ev:any){
      
       let val=ev.target.value;
-
+    
       
       if(val && val.trim()!='' && this.itemsB){
         this.cacherB=false;
@@ -211,13 +223,24 @@ import { UserApiService } from '../../../services/userapi.service';
       }
       else{
         this.cacherB=true;
+        this.initialisationItems({choix:2})
       }
 
     }
+
     choixVilleB(item: string){
       this.choixB=item;
       this.keyboard.close();
       this.cacherB=true;
+      this.presentLoadingCustom("Recherche...")
+      this.userApiService.postArretRecherche(this.choixB)
+      .then((data)=>{
+        this.loading.dismiss();
+       this.id_B=data[0].id;
+      
+       this.chargementDesHeures();
+     })
+     
     }
 
 
@@ -232,76 +255,115 @@ import { UserApiService } from '../../../services/userapi.service';
       let date:boolean=true;
       let dateF=new Date();
       let monTemps:any; 
-      let heureChoix:any;
-      let heure=dateF.getHours();
       let minute=dateF.getMinutes();
       let dateAnnee= dateF.getFullYear();
       let dateJour=dateF.getDate();
-      let heureActu=heure*60+minute;
 
+      console.log("finishhhh"+this.myHour)
       if(!this.choixA){
         erreursL.push("**Veuillez entrer une ville de départ ! ");
       }
       if(!this.choixB){
         erreursL.push("**Veuillez entrer une ville d'arrivée ! ");
-        console.log(heureActu+" choix "+heureChoix);
       }
       if(!this.myDate){
         erreursL.push("**Veuillez entrer une date de départ ! ");
       }
       
       if( new Date(this.myDate).getDate()+1<dateJour){
-        let alert = this.alertCtrl.create({
-          title: 'Attention !',
-          subTitle: 'Date inférieur à la date du jour',
-          buttons: ['Ok']
-        });
-        alert.present();
+        this.alertMessage('Date inférieur à la date du jour',)
         date=false;
-        console.log(this.myDate+" et "+new Date(this.myDate+"Z")+" et "+this.date+" date du jour: "+dateJour+" date: "+ new Date(this.myDate).getDate());
       }
 
       if(!this.myHour){
         erreursL.push("**Veuillez entrer une heure de départ !");
-      }
-      else{
-        monTemps=this.myHour.split(":");
-        heureChoix=Number(monTemps[0])*60+Number(monTemps[1]);
-      }
-      if((heureChoix-heureActu)<60){
-        let alert = this.alertCtrl.create({
-          title: 'Attention !',
-          subTitle: "Cette heure n'est plus disponible aujourd'hui !",
-          buttons: ['Ok']
-        });
-        alert.present();
-        date=false;
-      }
+      }   
       
       if(erreursL.length > 0 || date==false){
         this.erreurs= erreursL.join('<br/>');
       }
       else{
-      this.presentLoadingCustom();
-     
+      
+      this.presentLoadingCustom( 'Vérification du paiement...');
+      this.userApiService.getModePaiement(this.usager_id+"",this.id_A+"",this.id_B+"")
+      .then((data)=>{
+        this.loading.dismiss();
+        this.paiement=data;
+        this.alertMessagePrix("Prix à payer au chauffeur: "+this.paiement.valeur+"$")
+       
+      },
+    (err)=>{
+      this.alertMessage(err)
+    })
       }
+    }
+    
+    chargementDesHeures(){
+     
+      console.log("a"+this.id_A)
+      console.log("b"+this.id_B)
+      this.presentLoadingCustom('Recherche des heures disponibles...');
+      if(this.id_A && this.id_B){
+        this.userApiService.postHoraireListe(this.id_A,this.id_B)
+        .then((data)=>{
+          this.heures.length=Object.keys(data).length;
+          this.data=data;       
+          this.loading.dismiss()
+          for(let i=0;i<Object.keys(data).length;++i){
+            this.heures[i]=this.data[i].heure_arret_embarquement;
+            
+          }
+         
+        })
+      }
+      
+      else{
+
+      }
+     
     }
 
    
 
-    presentLoadingCustom() {
-      let loading = this.loadingCtrl.create({
-        content: 'Vérification du paiement...'
+   alertMessage(message:string){
+    let alert = this.alertCtrl.create({
+      title: 'Attention !',
+      subTitle: message,
+      buttons: ['Ok']
+    });
+    alert.present();
+   }
+   alertMessagePrix(message:string){
+    let alert = this.alertCtrl.create({
+      title: 'Coût de la course ',
+      subTitle: message,
+      buttons: [{
+        text:'Réserver',
+        handler:data=>{
+          this.creationReservation();
+        }
+      },
+      {
+        text:'Annuler'
+      }
+    ]
+    });
+    alert.present();
+   }
+
+    creationReservation(){
+      this.userApiService.postCreationDemandeUsager(this.paiement.valeur,this.myDate,this.usager_id,1,13576,21587)
+      .then((data)=>{
+        this.presentToast("Réservation effectué")
+      })
+    } 
+    presentLoadingCustom(message:string) {
+      this.loading = this.loadingCtrl.create({
+        content:message
       });
     
-      loading.present();
-    
-      setTimeout(() => {
-        
-        loading.dismiss();
-        this.navCtrl.push(HomePage);
-        this.presentToast("ok");
-      }, 3000);
+      this.loading.present();
+
      
     }
 

@@ -18,7 +18,7 @@ export class ProfilPage {
   private info:string;
   private image;
   private nom;
-  private solde;
+  private numero;
   private tree= [];
 
   constructor(private alertCtrl: AlertController,public app: App,private nativeStorage: NativeStorage ,public platform: Platform,public params: NavParams,public navCtrl: NavController, private userApiService : UserApiService) {
@@ -27,7 +27,7 @@ export class ProfilPage {
       data =>{
         this.data=data;
         this.nom=this.data.nom;
-        this.solde=this.data.paiement;
+        this.numero=this.numero;
        }
     );
    
