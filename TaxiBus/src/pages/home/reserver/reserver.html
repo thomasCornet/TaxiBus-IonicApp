@@ -10,20 +10,20 @@
 
       
       <div class="search">
-          <ion-searchbar placeholder="Secteur de départ"  [(ngModel)]="choixSD" (click)="secteurChoix({choix:1})"></ion-searchbar>
+          <ion-searchbar placeholder="Secteur de départ"  [(ngModel)]="choixSD" (click)="chargementSecteur({choix:1})"></ion-searchbar>
       </div>  
       
     <div class="searchOne">
       <ion-searchbar placeholder="Lieu de départ" (ionCancel)="onCancel($event)" [(ngModel)]="choixA" (ionInput)="rechercheInTree($event)"></ion-searchbar>
     </div>
       <ion-list *ngIf="!cacher">    
-        <button ion-item (click)="choixVille(item)"  *ngFor="let item of items">
+        <button  ion-item (click)="choixVille(item)"  *ngFor="let item of items">
           {{ item }}
         </button>   
     
       </ion-list>
       <div class="search">
-          <ion-searchbar placeholder="Secteur d'arrivée"  [(ngModel)]="choixSA" (click)="secteurChoix({choix:2})"></ion-searchbar>
+          <ion-searchbar placeholder="Secteur d'arrivée"  [(ngModel)]="choixSA" (click)="chargementSecteur({choix:2})"></ion-searchbar>
       </div>  
       <div class="searchTwo">
       <ion-searchbar placeholder="Lieu d'arrivée"[(ngModel)]="choixB"   (ionInput)="rechercheInTreeB($event)"></ion-searchbar>
@@ -39,7 +39,7 @@
       <ion-item>
           <ion-icon name="calendar" item-start></ion-icon>
         <ion-label>Date de départ</ion-label>
-        <ion-datetime displayFormat="MMM/DD/YYYY"  min={{dateAnnee}} max={{dateAnnee+30}} [(ngModel)]="myDate"></ion-datetime>
+        <ion-datetime (ionChange)="dateChoisi()" displayFormat="MMM/DD/YYYY"  min={{dateAnnee}} max={{dateAnnee+30}} [(ngModel)]="myDate"></ion-datetime>
       </ion-item>
     </div>
 
@@ -49,7 +49,7 @@
               <ion-icon name="time" item-start></ion-icon>
             <ion-label>Heure de départ</ion-label>
             <ion-select [(ngModel)]="myHour"  >
-              <ion-option *ngFor="let heure of heures" value="{{heure}}">{{heure}}</ion-option>
+              <ion-option *ngFor="let heure of heures" value="{{heure.heure_arret_embarquement}}">{{heure.heure_arret_embarquement}}</ion-option>
             </ion-select>
           </ion-item>
         </ion-list>

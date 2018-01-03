@@ -35,10 +35,11 @@ export class LoginPage {
             id:this.data.id,
             nom:this.data.nom,
             email:this.data.courriel,
+            url_photo_usager:this.data.url_photo_usager,
             numero:this.data.numero_usager,
             paiement:this.data.mode_paiement_actif
           });
-          
+        
          
           this.navCtrl.setRoot(TabsPage);
         }, (err) => {

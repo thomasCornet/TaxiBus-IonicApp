@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, Platform,Keyboard } from 'ionic-angular';
+import {LoadingController, NavController, Platform,Keyboard } from 'ionic-angular';
 import { LocationAccuracy } from '@ionic-native/location-accuracy';
 import {GoogleMaps, GoogleMap, GoogleMapsEvent, GoogleMapOptions, CameraPosition, MarkerOptions, Marker } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -17,6 +17,7 @@ export class MapsPage {
   private lng: number;
   private lati:number;
   private choix:string;
+  private loading:any;
   private nom: string = '';
   private items: string[];
   private valeur:string='';
@@ -38,7 +39,7 @@ export class MapsPage {
 
   ];
 
-  constructor(private nativeStorage: NativeStorage,public navCtrl: NavController,private locationAccuracy: LocationAccuracy, private googleMaps: GoogleMaps,public platform: Platform  ,public keyboard: Keyboard,private geolocation: Geolocation) {
+  constructor(public loadingCtrl: LoadingController,private nativeStorage: NativeStorage,public navCtrl: NavController,private locationAccuracy: LocationAccuracy, private googleMaps: GoogleMaps,public platform: Platform  ,public keyboard: Keyboard,private geolocation: Geolocation) {
   
     platform.ready().then(() =>{
       nativeStorage.getItem('trees')
@@ -49,15 +50,14 @@ export class MapsPage {
       );
       
       console.log(this.trees);
-      
+   
       //demande d'activation localisation
       this.locationAccuracy.canRequest().then((canRequest: boolean) => {
         
           if(canRequest) {
             // the accuracy option will be ignored by iOS
             this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
-              () => this.maPos(),
-              error => console.log('Erreur de localisation', error)
+              () => this.maPos()
             );
           }
       });        
@@ -75,14 +75,16 @@ export class MapsPage {
  
 
   maPos(){
+    this.presentLoadingCustom("Chargement de la carte...")
     this.geolocation.getCurrentPosition().then((pos) => {
+      this.loading.dismiss()
       this.loadMap(pos.coords.latitude,pos.coords.longitude);
     }
   )};
 
   loadMap(lat:number,lng:number) {
     
-    console.log("les coord ok:"+lat+"lng"+lng);
+    
 
         let mapOptions: GoogleMapOptions = {
           
@@ -132,7 +134,7 @@ export class MapsPage {
 
       this.map.addMarker({       
         title: tree.nom,
-        snippet:"Numéro de l'arrêt: "+tree.numero+", Secteur: "+tree.secteur,
+        snippet:"Secteur: "+tree.secteur,
         icon: 'red',
         animation: 'DROP',
         position: {
@@ -196,7 +198,15 @@ export class MapsPage {
      
     }
     
+    presentLoadingCustom(message:string) {
+      this.loading = this.loadingCtrl.create({
+        content:message
+      });
+    
+      this.loading.present();
 
+     
+    }
 
 
     fermerClavier(){

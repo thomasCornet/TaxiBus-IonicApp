@@ -11,9 +11,11 @@
       
      
       <div id="map" >
-          <ion-searchbar [(ngModel)]="choix"  [showCancelButton]="shouldShowCancel" (ionInput)="rechercheInTree($event)" ></ion-searchbar>
-          
-          
+       <!-- <ion-searchbar [(ngModel)]="choix"  [showCancelButton]="shouldShowCancel" (ionInput)="rechercheInTree($event)" ></ion-searchbar>
+         
+          Pour afficher la searchbar: elle fonctionne, mais les 400 arrêts mettent beaucoup de temps a apparaitre, il faudrait filtrer
+          par secteur !
+          -->
         
           <ion-list >
             <button ion-item (tap)="choixVille(item)"  *ngFor="let item of items">

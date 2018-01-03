@@ -4,6 +4,8 @@ import {MapsPage} from "../maps/maps";
 import { HomePage } from '../home';
 import { UserApiService } from '../../../services/userapi.service';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { ProfilPage } from '../../profil/profil';
+import { Horaire } from '../../../models/horaire';
 
 @Component({
     selector: 'page-reserver',
@@ -36,6 +38,8 @@ import { NativeStorage } from '@ionic-native/native-storage';
     private valeurs;
     private selectionOptions;
     private usager_id:number;
+    private secteur;
+    private longueur;
     constructor(private nativeStorage: NativeStorage,private userApiService : UserApiService,public navCtrl: NavController, private alertCtrl: AlertController, private toastCtrl: ToastController,public keyboard: Keyboard,public loadingCtrl: LoadingController) {
 
       nativeStorage.getItem('info')
@@ -51,55 +55,33 @@ import { NativeStorage } from '@ionic-native/native-storage';
       this.cacherB=true;
 
     }
+    chargementSecteur(choix){
+      this.presentLoadingCustom("Chargement secteur...")
+      this.userApiService.getSecteur()
+      .then((data)=>{
+        this.secteur=data;
+        this.loading.dismiss()
+        this.longueur=Object.keys(data).length;
+        this.secteurChoix(choix)
+      })
+    }
 
     secteurChoix(choix){
       let alert = this.alertCtrl.create();
       alert.setTitle('Choisissez un secteur !');
-
-      alert.addInput({
-        type: 'radio',
-        label: 'Valleyfield - 100',
-        value: 'Valleyfield - 100',
-        checked:true
-      });
+      
+    
   
-      alert.addInput({
-        type: 'radio',
-        label: 'Valleyfield - 200',
-        value: 'Valleyfield - 200',
-        
-      });
-      alert.addInput({
-        type: 'radio',
-        label: 'Valleyfield - 300',
-        value: 'Valleyfield - 300'
-      });
-      alert.addInput({
-        type: 'radio',
-        label: 'Valleyfield - 400',
-        value: 'Valleyfield - 400'
-      });
-      alert.addInput({
-        type: 'radio',
-        label: 'Valleyfield - 500',
-        value: 'Valleyfield - 500'
-      });
-      alert.addInput({
-        type: 'radio',
-        label: 'Valleyfield - 600',
-        value: 'Valleyfield - 600'
-      });
-      alert.addInput({
-        type: 'radio',
-        label: 'Grande-Île - 1000',
-        value: 'Grande-Île - 1000'
-      });
-      alert.addInput({
-        type: 'radio',
-        label: 'St-Timothée - 2000',
-        value: 'St-Timothée - 2000',
-        
-      });
+      for(var i =0;i<this.longueur;++i){
+        if(this.secteur[i].route_id==1){
+        alert.addInput({
+          type: 'radio',
+          label: this.secteur[i].nom,
+          value: this.secteur[i].nom,
+      
+        });
+      }
+      }
       
       
   
@@ -200,8 +182,11 @@ import { NativeStorage } from '@ionic-native/native-storage';
       .then((data)=>{
         this.loading.dismiss()
         this.id_A=data[0].id;
-        console.log("AAAAAAA"+this.id_A)
-      })
+        
+      },
+    (err)=>{
+      this.presentToast(err)
+    })
     }
 
     //Lieu d'arrivée
@@ -238,11 +223,14 @@ import { NativeStorage } from '@ionic-native/native-storage';
         this.loading.dismiss();
        this.id_B=data[0].id;
       
-       this.chargementDesHeures();
+       
      })
      
     }
-
+    dateChoisi(){
+      this.heures=[];
+      this.chargementDesHeures();
+    }
 
     showArrets(){
       this.navCtrl.push(MapsPage);
@@ -258,8 +246,11 @@ import { NativeStorage } from '@ionic-native/native-storage';
       let minute=dateF.getMinutes();
       let dateAnnee= dateF.getFullYear();
       let dateJour=dateF.getDate();
+      let dateChoisi=new Date(this.myDate)
+     
+      dateChoisi.setDate(dateChoisi.getDate()+1)
+     
 
-      console.log("finishhhh"+this.myHour)
       if(!this.choixA){
         erreursL.push("**Veuillez entrer une ville de départ ! ");
       }
@@ -270,16 +261,16 @@ import { NativeStorage } from '@ionic-native/native-storage';
         erreursL.push("**Veuillez entrer une date de départ ! ");
       }
       
-      if( new Date(this.myDate).getDate()+1<dateJour){
-        this.alertMessage('Date inférieur à la date du jour',)
-        date=false;
+      if( dateChoisi<dateF){
+        erreursL.push("**Date inférieur à la date du jour !")
+       
       }
 
       if(!this.myHour){
         erreursL.push("**Veuillez entrer une heure de départ !");
       }   
       
-      if(erreursL.length > 0 || date==false){
+      if(erreursL.length > 0 ){
         this.erreurs= erreursL.join('<br/>');
       }
       else{
@@ -304,18 +295,31 @@ import { NativeStorage } from '@ionic-native/native-storage';
       console.log("b"+this.id_B)
       this.presentLoadingCustom('Recherche des heures disponibles...');
       if(this.id_A && this.id_B){
-        this.userApiService.postHoraireListe(this.id_A,this.id_B)
+        this.userApiService.postHoraireListe(this.id_A,this.id_B,this.myDate)
         .then((data)=>{
-          this.heures.length=Object.keys(data).length;
+          
           this.data=data;       
-          this.loading.dismiss()
-          for(let i=0;i<Object.keys(data).length;++i){
-            this.heures[i]=this.data[i].heure_arret_embarquement;
+          this.loading.dismiss();
+          let heureInfo:Horaire;
+          for(let i=0;i<Object.keys(data).length-(Object.keys(data).length/2);++i){
+           for( let j=0;j<Object.keys(data).length;++j){
+            if(this.data[j].type_horaire==0 ){
+              heureInfo=new Horaire;
+              heureInfo.route_id=this.data[j].route_id
+              heureInfo.heure_arret_embarquement=this.data[j].heure_arret_embarquement;
+              heureInfo.horaire_id_embarquement=this.data[j].horaire_id_embarquement;
+              heureInfo.horaire_id_debarquement=this.data[j].horaire_id_debarquement;
+              heureInfo.type_horaire=this.data[j].type_horaire;
+              this.heures.push(heureInfo);
+              i++;
+            }
             
+          }
           }
          
         })
       }
+
       
       else{
 
@@ -333,18 +337,20 @@ import { NativeStorage } from '@ionic-native/native-storage';
     });
     alert.present();
    }
+
    alertMessagePrix(message:string){
     let alert = this.alertCtrl.create({
       title: 'Coût de la course ',
       subTitle: message,
-      buttons: [{
+      buttons: [
+      {
+        text:'Annuler'
+      },
+      {
         text:'Réserver',
         handler:data=>{
           this.creationReservation();
         }
-      },
-      {
-        text:'Annuler'
       }
     ]
     });
@@ -352,11 +358,23 @@ import { NativeStorage } from '@ionic-native/native-storage';
    }
 
     creationReservation(){
-      this.userApiService.postCreationDemandeUsager(this.paiement.valeur,this.myDate,this.usager_id,1,13576,21587)
+      let route_id;
+      let id_emb;
+      let id_deb;
+      for(let i=0;i<this.heures.length;++i){
+        if(this.myHour===this.heures[i].heure_arret_embarquement){
+          route_id=this.heures[i].route_id;
+          id_deb=this.heures[i].horaire_id_debarquement;
+          id_emb=this.heures[i].horaire_id_embarquement;
+        }
+      }
+      this.userApiService.postCreationDemandeUsager(this.paiement.valeur,this.myDate,this.usager_id,route_id,id_emb,id_deb)
       .then((data)=>{
-        this.presentToast("Réservation effectué")
+        this.presentToast("Réservation effectué avec succés")
+        this.navCtrl.push(ProfilPage)
       })
     } 
+
     presentLoadingCustom(message:string) {
       this.loading = this.loadingCtrl.create({
         content:message

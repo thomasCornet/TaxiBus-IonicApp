@@ -12,7 +12,16 @@
 </ion-header>
 
 <ion-content >
-        <img  (tap)="imgChange()" class="photo" src="assets/imgs/{{image}}" />
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+          pullingIcon="arrow-dropdown"
+          pullingText="Glissez vers le bas pour rafraîchir"
+          refreshingSpinner="circles"
+          refreshingText="Mise-à-jour...">
+        </ion-refresher-content>
+      </ion-refresher>
+
+        <img  (tap)="imgChange()" class="photo" src="assets/imgs/{{url_photo_usager}}" />
         <h1 class="profil">{{nom}}</h1>
         <h4 class="profil">{{numero}}</h4>
   <div padding class="chapitre">
@@ -27,22 +36,27 @@
   </div>
   
   <div [ngSwitch]="info">
-
      <ion-list *ngSwitchCase="'reservation'" ngSelected="selected">
-      <ion-card>
+        <div *ngIf="cards.length==0 ">
+            <a  style="display:block; margin-left:5%;">Glisser vers le bas pour actualiser</a>
+        </div>
+      <ion-card *ngFor="let card of cards">
         <ion-card-header style="font-weight: bold"color="primary">
-          Samedi 28 Janvier - 20h10
+          Réservation le {{card.date_demande}} à {{card.heure_arret_embarquement}}
         </ion-card-header>
         
         <ion-card-content>
             <p>
               <img id="ticket"src="assets/imgs/ticket.png">
-              <span class="placement">D : 404 - Hotel de Ville <br/> A : 202 - Rue Nicholson</span>
-            </p>     
+              <span class="placement">D : {{card.nom_arret_embarquement}} <br/> A : {{card.nom_arret_debarquement}}</span>
+            </p>
 
         </ion-card-content>
+        <a (click)="presentAlert(card.demande_usager_id)" style="margin-left:5%;margin-bottom:1%;color:red;">Annuler la réservation</a>     
+        <a style="margin-left:25%;">Tarif: {{card.mode_paiement}}</a>     
       </ion-card>
     </ion-list>
+
 
     <ion-item *ngSwitchCase="'information'">
         

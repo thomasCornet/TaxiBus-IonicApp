@@ -81,7 +81,25 @@ export class UserApiService{
             let options = new RequestOptions({ headers: headers });
            
 
-            this.http.post(this.baseUrl+"arret/recherche",{nom:nom},options)
+            this.http.post(this.baseUrl+"arret/recherche",{nom:nom,route_id:1},options)
+            .subscribe(res => {
+              resolve(res.json());
+            }, (err) => {            
+              reject(err);
+            });
+                  
+          });
+          }
+          //Récupére tous les secteurs
+        public getSecteur(){
+          return new Promise((resolve, reject) => {  
+            let headers = new Headers();
+            headers.append('Authorization','Basic VGVzdF9UQzpqb2prMmQzZDZod2QzNA==');
+            headers.append('Content-Type', 'application/json');
+            let options = new RequestOptions({ headers: headers });
+           
+
+            this.http.get(this.baseUrl+"secteur/liste",options)
             .subscribe(res => {
               resolve(res.json());
             }, (err) => {            
@@ -92,7 +110,7 @@ export class UserApiService{
           }
 
         //Récupére les horaires disponible pour un embarquement a un arret précis
-        public postHoraireListe(depart:number,arrivee:number){
+        public postHoraireListe(depart:number,arrivee:number,filtre:string){
           return new Promise((resolve, reject) => {  
             let headers = new Headers();
             headers.append('Authorization','Basic VGVzdF9UQzpqb2prMmQzZDZod2QzNA==');
@@ -100,7 +118,7 @@ export class UserApiService{
             let options = new RequestOptions({ headers: headers });
            
 
-            this.http.post(this.baseUrl+"horaire/liste",{arret_id_embarquement:depart,arret_id_debarquement:arrivee},options)
+            this.http.post(this.baseUrl+"horaire/liste",{arret_id_embarquement:depart,arret_id_debarquement:arrivee,filtre_date:filtre},options)
             .subscribe(res => {
               resolve(res.json()  );
             }, (err) => {            
@@ -128,7 +146,7 @@ export class UserApiService{
           });
         }
         
-        //Récupére le prix a payer pour l'usager
+        //Crée une réservation
         public postCreationDemandeUsager(paiement:string,date:string,usager:number,route:number,depart:number,arrivee:number){
           return new Promise((resolve, reject) => {  
             let headers = new Headers();
@@ -145,6 +163,23 @@ export class UserApiService{
                   
           });
         }
+      //Annule une  réservation
+      public deleteReservation(numero:string) {
+        return new Promise((resolve, reject) => {  
+          let headers = new Headers();
+          headers.append('Authorization','Basic VGVzdF9UQzpqb2prMmQzZDZod2QzNA==');
+          headers.append('Content-Type', 'application/json');
+          let options = new RequestOptions({ headers: headers });
+          
+          this.http.delete(this.baseUrl+"demande-usager/"+numero,options)
+          .subscribe(res => {
+            resolve(res.json());
+          }, (err) => {            
+            reject(err);
+          });
+          
+        } );
+      }
 
       //recherche usager grace au numero usager
       public postRecherche(numero : string) {
@@ -252,7 +287,46 @@ export class UserApiService{
         } );
       }
 
-    
+      //Changer avatar
+      public patchChangerAvatar(numero : number, changement : string) {
+        return new Promise((resolve, reject) => {  
+          let headers = new Headers();
+          headers.append('Authorization','Basic VGVzdF9UQzpqb2prMmQzZDZod2QzNA==');
+          headers.append('Content-Type', 'application/json');
+          let options = new RequestOptions({ headers: headers });
+          
+          this.http.patch(this.baseUrl+"usager/"+numero,{url_photo_usager:changement},options)
+          .subscribe(res => {
+            resolve(res.json());
+          }, (err) => {            
+            reject(err);
+          });
+          
+        } );
+      }
 
+    
+      //Changer telephone
+      public getDemandeUsager(numero:string) {
+        return new Promise((resolve, reject) => {  
+          let headers = new Headers();
+          headers.append('Authorization','Basic VGVzdF9UQzpqb2prMmQzZDZod2QzNA==');
+          headers.append('Content-Type', 'application/json');
+          let options = new RequestOptions({ headers: headers });
+          
+          this.http.get(this.baseUrl+"demande-usager/liste/"+numero,options)
+          .subscribe(res => {
+            resolve(res.json());
+          }, (err) => {            
+            reject(err);
+          });
+          
+        } );
+      }
+
+      
+     
+
+     
 
 }

@@ -20,6 +20,7 @@ import { ProfilPage } from '../profil';
     private secret2;
     private information;
     private couple = { username:"", password:"" };
+    
     constructor(private toastCtrl: ToastController,private nativeStorage: NativeStorage ,public params: NavParams,public viewCtrl: ViewController,public navCtrl: NavController, private photoLibrary: PhotoLibrary, private userApiService : UserApiService){
         this.nativeStorage.getItem('info')
         .then(
@@ -39,6 +40,7 @@ import { ProfilPage } from '../profil';
         if(this.params.get('choixNum')!=3 && this.params.get('choixNum')!=4){
             this.choix=choix[this.params.get('choixNum').choixNum];  
             this.numChoix=this.params.get('choixNum').choixNum;
+        
         }
         else{
             this.choix=choix[this.params.get('choixNum')];  
