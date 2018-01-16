@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.cegep.taxibus" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>MyApp</name>
+    <name>TaxiBus</name>
     <description>TaxiBus Valleyfield</description>
     <author email="cornet.thomas017@gmail.com" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
@@ -18,8 +18,9 @@
     <preference name="FadeSplashScreenDuration" value="300" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreen" value="screen" />
-    <preference name="SplashScreenDelay" value="0" />
+    <preference name="SplashScreenDelay" value="3000" />
     <preference name="orientation" value="portrait" />
+    <preference name="AutoHideSplashScreen" value="false" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />

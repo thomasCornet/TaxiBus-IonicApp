@@ -12,7 +12,8 @@ import { NativeStorage } from '@ionic-native/native-storage';
 })
 
 export class LoginPage {
-   
+  splash = true;
+
     private loading: any;
     private loginData = { username:"", password:"" };
     private data: any;
