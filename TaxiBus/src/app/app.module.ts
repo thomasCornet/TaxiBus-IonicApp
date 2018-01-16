@@ -44,6 +44,8 @@ import { NativeStorage } from '@ionic-native/native-storage';
 //SMS verification
 import { SMS } from '@ionic-native/sms';
 
+//Notification push
+import { OneSignal } from '@ionic-native/onesignal';
 @NgModule({
   declarations: [
     MyApp,
@@ -89,6 +91,7 @@ import { SMS } from '@ionic-native/sms';
     SplashScreen,
     GoogleMaps,
     Geolocation,
+    OneSignal,
     EmailComposer,
     NativeStorage,
     PhotoLibrary,

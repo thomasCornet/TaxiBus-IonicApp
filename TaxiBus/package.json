@@ -29,6 +29,7 @@
         "@ionic-native/local-notifications": "^4.5.0",
         "@ionic-native/location-accuracy": "^4.4.2",
         "@ionic-native/native-storage": "^4.5.2",
+        "@ionic-native/onesignal": "^4.5.2",
         "@ionic-native/photo-library": "^4.5.0",
         "@ionic-native/screen-orientation": "^4.4.2",
         "@ionic-native/sms": "^4.5.2",
@@ -61,6 +62,7 @@
         "ionic2-super-tabs": "^4.1.5",
         "ionicons": "3.0.0",
         "nodemailer": "^4.4.1",
+        "onesignal-cordova-plugin": "^2.2.5",
         "rxjs": "5.5.2",
         "sw-toolbox": "3.6.0",
         "zone.js": "0.8.18"

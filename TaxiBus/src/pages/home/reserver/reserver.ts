@@ -6,7 +6,9 @@ import { UserApiService } from '../../../services/userapi.service';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { ProfilPage } from '../../profil/profil';
 import { Horaire } from '../../../models/horaire';
-
+import { OneSignal } from '@ionic-native/onesignal';
+import { Body } from '@angular/http/src/body';
+import { errorHandler } from '@angular/platform-browser/src/browser';
 @Component({
     selector: 'page-reserver',
     templateUrl: 'reserver.html'
@@ -40,7 +42,7 @@ import { Horaire } from '../../../models/horaire';
     private usager_id:number;
     private secteur;
     private longueur;
-    constructor(private nativeStorage: NativeStorage,private userApiService : UserApiService,public navCtrl: NavController, private alertCtrl: AlertController, private toastCtrl: ToastController,public keyboard: Keyboard,public loadingCtrl: LoadingController) {
+    constructor(private oneSignal: OneSignal,private nativeStorage: NativeStorage,private userApiService : UserApiService,public navCtrl: NavController, private alertCtrl: AlertController, private toastCtrl: ToastController,public keyboard: Keyboard,public loadingCtrl: LoadingController) {
 
       nativeStorage.getItem('info')
       .then(
@@ -53,6 +55,41 @@ import { Horaire } from '../../../models/horaire';
 
       //Arrivée
       this.cacherB=true;
+
+
+     /* ******test envoie d'une notification le jour de la réservation ******
+     this.oneSignal.startInit('12b08c93-7bcb-4580-9c25-02e8f8759535', '69876765405');
+      
+     
+      
+      this.oneSignal.handleNotificationReceived().subscribe(() => {
+       // do something when notification is received
+      });
+      
+      this.oneSignal.handleNotificationOpened().subscribe(() => {
+        // do something when a notification is opened
+      });
+      
+      this.oneSignal.endInit();
+        let payload={
+          notificationID:"12b08c93-7bcb-4580-9c25-02e8f8759535",
+          title:"test00",
+          body:"test0",
+          sound:"",
+          actionButtons:[],
+          rawPayload:""
+        };
+        let test={
+          isAppInFocus:true,
+          displayType:1,
+          shown:true,
+          payload:payload,
+          contents:'test1'
+          
+        }
+       
+      this.oneSignal.postNotification(test);
+     */
 
     }
     chargementSecteur(choix){
@@ -301,7 +338,7 @@ import { Horaire } from '../../../models/horaire';
           this.data=data;       
           this.loading.dismiss();
           let heureInfo:Horaire;
-          for(let i=0;i<Object.keys(data).length-(Object.keys(data).length/2);++i){
+          
            for( let j=0;j<Object.keys(data).length;++j){
             if(this.data[j].type_horaire==0 ){
               heureInfo=new Horaire;
@@ -311,10 +348,10 @@ import { Horaire } from '../../../models/horaire';
               heureInfo.horaire_id_debarquement=this.data[j].horaire_id_debarquement;
               heureInfo.type_horaire=this.data[j].type_horaire;
               this.heures.push(heureInfo);
-              i++;
+           
             }
             
-          }
+          
           }
          
         })
@@ -372,6 +409,11 @@ import { Horaire } from '../../../models/horaire';
       .then((data)=>{
         this.presentToast("Réservation effectué avec succés")
         this.navCtrl.push(ProfilPage)
+
+    
+        
+      
+
       })
     } 
 

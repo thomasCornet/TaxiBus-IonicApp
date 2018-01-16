@@ -47,20 +47,18 @@ export class MapsPage {
         tree =>{
           this.trees=tree.tree;
          }
-      );
+      )
       
       console.log(this.trees);
-   
-      //demande d'activation localisation
-      this.locationAccuracy.canRequest().then((canRequest: boolean) => {
-        
-          if(canRequest) {
+
+          
             // the accuracy option will be ignored by iOS
             this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
-              () => this.maPos()
-            );
-          }
-      });        
+              () => 
+                    this.maPos()
+            )
+          
+            
     });
 
     this.items=new Array(this.trees.length);
