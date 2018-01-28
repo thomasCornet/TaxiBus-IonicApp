@@ -7,6 +7,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { UserApiProfil } from '../../models/user.api.profil';
 import { LoginPage } from '../login/login';
 import { UserApiReservation } from '../../models/user.api.reservation';
+import { Refresher } from 'ionic-angular/components/refresher/refresher';
 
 @Component({
   selector: 'page-profil',
@@ -107,6 +108,7 @@ export class ProfilPage {
         this.userApiService.deleteReservation(numero)
         .then(data=>{
           this.presentToast("Votre réservation a été annulé !")
+          this.nativeStorage.remove('reservation');
           this.navCtrl.push(ProfilPage)
         })
         

@@ -1,6 +1,6 @@
 {
   "name": "TaxiBus",
-  "app_id": "",
+  "app_id": "com.cegep.taxibus",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}

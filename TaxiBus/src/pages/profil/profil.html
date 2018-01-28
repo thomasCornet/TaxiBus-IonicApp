@@ -52,8 +52,15 @@
             </p>
 
         </ion-card-content>
-        <a (click)="presentAlert(card.demande_usager_id)" style="margin-left:5%;margin-bottom:1%;color:red;">Annuler la réservation</a>     
-        <a style="margin-left:25%;">Tarif: {{card.mode_paiement}}</a>     
+       
+        <a (click)="presentAlert(card.demande_usager_id)" style="margin-left:5%;margin-bottom:1%;color:red;">
+            <ion-icon name="close-circle" ></ion-icon>
+          Annuler la réservation
+        </a>     
+        <a style="margin-left:25%;">
+            <ion-icon name="cash" ></ion-icon>
+          Tarif: {{card.mode_paiement}}
+        </a>     
       </ion-card>
     </ion-list>
 

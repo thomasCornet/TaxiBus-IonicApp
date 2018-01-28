@@ -2,8 +2,8 @@
 <widget id="com.cegep.taxibus" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>TaxiBus</name>
     <description>TaxiBus Valleyfield</description>
-    <author email="cornet.thomas017@gmail.com" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <author email="cornet.thomas017@gmail.com" href="http://ionicframework.com/">University Lille1 Team</author>
+    <content original-src="index.html" src="http://192.168.2.55:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

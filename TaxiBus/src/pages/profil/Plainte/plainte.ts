@@ -27,6 +27,9 @@ import { EmailComposer } from '@ionic-native/email-composer';
           this.details="";
         }
          let email = {
+           /*
+           to:'directiontaxibus@taxibusvalleyfield.com'
+           */
             to: 'cornet.thomas017@gmail.com',
             /*//cc: 'test@yahoo.fr',
             //bcc: ['john@doe.com', 'jane@doe.com'],

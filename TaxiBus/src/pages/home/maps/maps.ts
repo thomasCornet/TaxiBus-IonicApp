@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {LoadingController, NavController, Platform,Keyboard } from 'ionic-angular';
+import {LoadingController, NavController, ToastController,Platform,Keyboard } from 'ionic-angular';
 import { LocationAccuracy } from '@ionic-native/location-accuracy';
 import {GoogleMaps, GoogleMap, GoogleMapsEvent, GoogleMapOptions, CameraPosition, MarkerOptions, Marker } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -21,25 +21,9 @@ export class MapsPage {
   private nom: string = '';
   private items: string[];
   private valeur:string='';
-  private zone = [
-    {lat:-74.137845,lng:45.2562199},
-    {lat:-74.1263866,lng:45.2426088},
-    {lat:-74.121151,lng:45.244739},
-    {lat:-74.1247559,lng:45.2489993},
-    {lat:-74.1230178,lng:45.2509481},
-    {lat:-74.1219234,lng:45.2511142},
-    {lat:-74.122417,lng:45.2516429},
-    {lat:-74.1244125,lng:45.251507},
-    {lat:-74.1282749,lng:45.2561897},
-    {lat:-74.1280603,lng:45.2567788},
-    {lat:-74.1280603,lng:45.2573527},
-    {lat:-74.129777,lng:45.2572319},
-    {lat:-74.1299057,lng:45.2565371},
-    {lat:-74.137845,lng:45.2562199},
+ 
 
-  ];
-
-  constructor(public loadingCtrl: LoadingController,private nativeStorage: NativeStorage,public navCtrl: NavController,private locationAccuracy: LocationAccuracy, private googleMaps: GoogleMaps,public platform: Platform  ,public keyboard: Keyboard,private geolocation: Geolocation) {
+  constructor(private toastCtrl: ToastController,public loadingCtrl: LoadingController,private nativeStorage: NativeStorage,public navCtrl: NavController,private locationAccuracy: LocationAccuracy, private googleMaps: GoogleMaps,public platform: Platform  ,public keyboard: Keyboard,private geolocation: Geolocation) {
   
     platform.ready().then(() =>{
       nativeStorage.getItem('trees')
@@ -48,12 +32,7 @@ export class MapsPage {
           this.trees=tree.tree;
          }
       )
-      
-      console.log(this.trees);
-
-          
-            // the accuracy option will be ignored by iOS
-            this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
+       this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
               () => 
                     this.maPos()
             )
@@ -70,13 +49,28 @@ export class MapsPage {
     }
       
   }
- 
+  presentToast(test:string) {
+    let toast = this.toastCtrl.create({
+      message: test,
+      duration: 3000,
+      position: 'bottom'
+    });
+  
+    toast.onDidDismiss(() => {
+      console.log('Toast Visualisé ! ');
+    });
+  
+    toast.present();
+  }
 
   maPos(){
     this.presentLoadingCustom("Chargement de la carte...")
     this.geolocation.getCurrentPosition().then((pos) => {
-      this.loading.dismiss()
+      this.loading.dismiss();
       this.loadMap(pos.coords.latitude,pos.coords.longitude);
+    },
+    (err)=>{
+      this.presentToast("erreur maPos()")
     }
   )};
 
@@ -106,6 +100,7 @@ export class MapsPage {
             console.log('Map is ready!');
             for(var tree of this.trees){
               this.addMarkerOnMap(tree);
+           
             }
          
             this.map.addMarker({
@@ -117,13 +112,9 @@ export class MapsPage {
                   lng: lng
                 }
               });
-              
-            this.map.addPolygon( {
-            'points': this.zone,
-            'strokeColor' : '#AA00FF',
-            'strokeWidth': 5,
-            'fillColor' : '#880000'
-            });
+          },
+          (err)=>{
+            
           });
       }
     
@@ -145,7 +136,7 @@ export class MapsPage {
     }
 
   
-    initialisationItems(){
+   /* initialisationItems(){
       for(var i=0;i<this.trees.length;++i){
         this.items[i]=this.trees[i].name;
       }
@@ -183,7 +174,7 @@ export class MapsPage {
       }
       
      
-    }
+    }*/
 
     zoom(lat:number,lng:number){
       console.log(lat,lng);

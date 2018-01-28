@@ -35,6 +35,9 @@ import { errorHandler } from '@angular/platform-browser/src/browser';
     private selection;
     private id_A;
     private id_B;
+    private usagerAcc;
+    private ajouterU=[];
+    private ajouterB=false;
     private data;
     private paiement;
     private valeurs;
@@ -273,7 +276,18 @@ import { errorHandler } from '@angular/platform-browser/src/browser';
       this.navCtrl.push(MapsPage);
     }
 
+    verificationAccompagnateur(){
+      if(!this.usagerAcc){
 
+      }
+      else{
+        this.userApiService.postRecherche(this.usagerAcc)
+      .then((data)=>{
+        
+      })
+      }
+      
+    }
 
     verification(){
       let erreursL= [];
@@ -284,7 +298,7 @@ import { errorHandler } from '@angular/platform-browser/src/browser';
       let dateAnnee= dateF.getFullYear();
       let dateJour=dateF.getDate();
       let dateChoisi=new Date(this.myDate)
-     
+      this.verificationAccompagnateur();
       dateChoisi.setDate(dateChoisi.getDate()+1)
      
 
@@ -325,7 +339,7 @@ import { errorHandler } from '@angular/platform-browser/src/browser';
     })
       }
     }
-    
+    z
     chargementDesHeures(){
      
       console.log("a"+this.id_A)
@@ -441,7 +455,11 @@ import { errorHandler } from '@angular/platform-browser/src/browser';
       toast.present();
     }
 
-
-   
+    ajouter(){
+      this.ajouterB=true;
+      this.ajouterU.push('yes')
+      
+    }
+ 
     
   }  
